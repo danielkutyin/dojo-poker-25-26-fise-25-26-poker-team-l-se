@@ -2,7 +2,7 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 public class Main {
 
-    System.out.println("hi");
+
     public static String hello() {
         return "Hello World!";
     }
