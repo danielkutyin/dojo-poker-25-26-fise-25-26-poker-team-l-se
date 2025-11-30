@@ -19,6 +19,6 @@ public class Tile {
 
     @Override
     public String toString() {
-        return "Tile{" + "pos=" + pos + ", color=" + color + '}';
+        return "Tile{" + "pos=" + pos + ", color=" + color.name() + '}';
     }
 }
