@@ -27,5 +27,7 @@ public class Board {
     public int getNumTiles() {
         return tiles.size();
     }
-
+    public void setTile(Tile tile,Position pos){
+        tiles.put(pos,tile);
+    }
 }
