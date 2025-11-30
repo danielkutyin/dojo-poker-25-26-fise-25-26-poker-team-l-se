@@ -2,8 +2,7 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PositionTest {
     @Test
@@ -22,4 +21,20 @@ public class PositionTest {
         assertEquals(pos1,pos2);
         assertEquals(pos1.hashCode(),pos2.hashCode());
     }
+
+    @Test
+    public void testadjacency(){
+        Position pos1 = new Position(1,1);
+        Position pos2 = pos1.getNeighbourPosbyindex(0);
+        Position pos3 = pos1.getNeighbourPosbyindex(3);
+        assertEquals(new Position(2,1),pos2);
+        assertEquals(new Position(0,1),pos3);
+    }
+
+    @Test
+    public void testadjacency2(){
+        Position pos1 = new Position(1,1);
+        assertTrue(pos1.isNeighbour(new Position(0,1)));
+    }
+
 }
