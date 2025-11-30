@@ -1,4 +1,25 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 public class PositionTest {
+    @Test
+    public void testEqualsValues(){
+        Position pos1 = new Position(0,0);
+        Position pos2 = new Position(0,0);
+        Position pos3 = new Position(1,0);
+        assertEquals(pos1,pos2);
+        assertNotEquals(pos1,pos3);
+    }
+
+    @Test
+    public void testHashCodeValues(){
+        Position pos1 = new Position(1,-1);
+        Position pos2 = new Position(1,-1);
+        assertEquals(pos1,pos2);
+        assertEquals(pos1.hashCode(),pos2.hashCode());
+    }
 }
