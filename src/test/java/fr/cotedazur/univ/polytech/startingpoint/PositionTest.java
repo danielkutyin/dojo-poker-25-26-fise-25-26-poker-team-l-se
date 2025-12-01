@@ -2,6 +2,9 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PositionTest {
@@ -36,5 +39,32 @@ public class PositionTest {
         Position pos1 = new Position(1,1);
         assertTrue(pos1.isNeighbour(new Position(0,1)));
     }
+    @Test
+    public void testverifPositionAvailable(){//Test marche mais faut avoir la bonne place au bon endroit dans le hashMap
+        List<Position> neighbours;
+        List<Position> neighboursReal =new ArrayList<>();
+        Board board = new Board();
+        Position pos1 = new Position(0,0);
+        Position pos2 = new Position(0,2);
+        Tile tile1 =new Tile(pos1,TileColor.GREEN);
+        Tile tile2 =new Tile(pos2,TileColor.GREEN);
+        board.setTile(tile1,pos1);
+        board.setTile(tile2,pos2);
+        neighbours=pos2.setNeighbours();
+        System.out.println(neighbours);
 
+        Position hautDroite = new Position(3, 3);
+        Position hautGauche = new Position(3, 1);
+        Position droite = new Position(0, 4);
+        Position basGauche = new Position(-3, 1);
+        Position basDroite = new Position(-3, 3);
+
+        neighboursReal.add(hautDroite);
+        neighboursReal.add(hautGauche);
+        neighboursReal.add(droite);
+        neighboursReal.add(basDroite);
+        neighboursReal.add(basGauche);
+
+        assertEquals(neighboursReal,neighbours);
+    }
 }

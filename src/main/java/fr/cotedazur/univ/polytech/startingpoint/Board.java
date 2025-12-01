@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Board {
 
-    private final Map<Position, Tile> tiles = new HashMap<>();
+    private static final Map<Position, Tile> tiles = new HashMap<>();
     private Tile pond;
 
     public Board() {
@@ -30,7 +30,7 @@ public class Board {
     public void setTile(Tile tile,Position pos){
         tiles.put(pos,tile);
     }
-    public Map<Position, Tile> getHashMap(){
+    public static Map<Position, Tile> getHashMap(){
         return tiles;
     }
 }

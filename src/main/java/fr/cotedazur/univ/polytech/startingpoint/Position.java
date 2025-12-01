@@ -9,6 +9,7 @@ public class Position {
     private List<Position> neighbours = new ArrayList<>();
     private Board board;
 
+
     public Position(int height, int width){
         this.height =height;
         this.width =width;
@@ -29,13 +30,13 @@ public class Position {
             new Position(0, 1) // bas à droite
     );
 
-    public List<Position> setNeighbours(Position pos){
-        Position hautDroite = new Position(pos.height+3, pos.width+1);
-        Position hautGauche = new Position(pos.height+3, pos.width-1);
-        Position droite = new Position(pos.height, pos.width+2);
-        Position gauche = new Position(pos.height, pos.width-2);
-        Position basGauche = new Position(pos.height-3, pos.width-1);
-        Position basDroite = new Position(pos.height-3, pos.width+1);
+    public List<Position> setNeighbours(){
+        Position hautDroite = new Position(height+3, width+1);
+        Position hautGauche = new Position(height+3, width-1);
+        Position droite = new Position(height, width+2);
+        Position gauche = new Position(height, width-2);
+        Position basGauche = new Position(height-3, width-1);
+        Position basDroite = new Position(height-3, width+1);
 
         neighbours.add(hautDroite);
         neighbours.add(hautGauche);
@@ -48,7 +49,7 @@ public class Position {
     }
     public List<Position> verifPositionAvailable(List<Position> list){
         for(int i=0;i<list.size();i++) {
-            if (board.getHashMap().containsKey(list.get(i))) {
+            if (Board.getHashMap().containsKey(list.get(i))) {
                 list.remove(list.get(i));
             }
         }
