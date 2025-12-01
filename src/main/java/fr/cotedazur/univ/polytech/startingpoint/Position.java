@@ -4,18 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Position {
-    private int q;
-    private int r;
+    private int height;
+    private int width;
+    private List<Position> neighbours = new ArrayList<>();
+    private Board board;
 
     public Position(int height, int width){
-        this.q =height;
-        this.r =width;
+        this.height =height;
+        this.width =width;
     }
-    public double getQ(){
-        return q;
+    public int getWidth(){
+        return width;
     }
-    public double getR(){
-        return r;
+    public int getHeight(){
+        return height;
     }
     //List de positions adjacentes pour l'etang
     public static final List<Position> adjacentPos=List.of(
@@ -25,11 +27,36 @@ public class Position {
             new Position(-1, 0), // gauche
             new Position(-1, 1), //bas à gauche
             new Position(0, 1) // bas à droite
-
     );
+
+    public List<Position> setNeighbours(Position pos){
+        Position hautDroite = new Position(pos.height+3, pos.width+1);
+        Position hautGauche = new Position(pos.height+3, pos.width-1);
+        Position droite = new Position(pos.height, pos.width+2);
+        Position gauche = new Position(pos.height, pos.width-2);
+        Position basGauche = new Position(pos.height-3, pos.width-1);
+        Position basDroite = new Position(pos.height-3, pos.width+1);
+
+        neighbours.add(hautDroite);
+        neighbours.add(hautGauche);
+        neighbours.add(droite);
+        neighbours.add(gauche);
+        neighbours.add(basDroite);
+        neighbours.add(basGauche);
+
+        return verifPositionAvailable(neighbours);
+    }
+    public List<Position> verifPositionAvailable(List<Position> list){
+        for(int i=0;i<list.size();i++) {
+            if (board.getHashMap().containsKey(list.get(i))) {
+                list.remove(list.get(i));
+            }
+        }
+        return list;
+    }
     public Position getNeighbourPosbyindex(int index){
         Position direction=adjacentPos.get(index);
-        return new Position( this.q+direction.q ,  this.r+direction.r );
+        return new Position( this.height+direction.height ,  this.width+direction.width );
     }
 
     public Boolean isNeighbour(Position pos){
@@ -47,7 +74,7 @@ public class Position {
         if (obj == null) return false;
         if(obj instanceof Position){
             Position position = (Position)obj;
-            if(this.q == position.q && this.r == position.r){
+            if(this.height == position.height && this.width == position.width){
                 return true;
             }
         }
@@ -56,11 +83,11 @@ public class Position {
 
     @Override
     public int hashCode() {
-        return 31* r + q;
+        return 31* width + height;
     }
 
     @Override
     public String toString() {
-        return ("("+ q +","+ r +")");
+        return ("("+ height +","+ width +")");
     }
 }

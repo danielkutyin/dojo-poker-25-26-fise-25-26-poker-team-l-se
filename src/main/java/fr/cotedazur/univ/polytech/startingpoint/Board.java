@@ -30,4 +30,7 @@ public class Board {
     public void setTile(Tile tile,Position pos){
         tiles.put(pos,tile);
     }
+    public Map<Position, Tile> getHashMap(){
+        return tiles;
+    }
 }
