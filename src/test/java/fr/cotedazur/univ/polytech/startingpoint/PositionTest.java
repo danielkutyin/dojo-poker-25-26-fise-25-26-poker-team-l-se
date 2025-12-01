@@ -67,4 +67,8 @@ public class PositionTest {
 
         assertEquals(neighboursReal,neighbours);
     }
+    @Test
+    public void testVerifRules(){
+
+    }
 }

@@ -1,6 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Position {
@@ -8,6 +9,7 @@ public class Position {
     private int width;
     private List<Position> neighbours = new ArrayList<>();
     private Board board;
+    private Position pos;
 
 
     public Position(int height, int width){
@@ -44,7 +46,6 @@ public class Position {
         neighbours.add(gauche);
         neighbours.add(basDroite);
         neighbours.add(basGauche);
-
         return verifPositionAvailable(neighbours);
     }
     public List<Position> verifPositionAvailable(List<Position> list){
@@ -53,7 +54,19 @@ public class Position {
                 list.remove(list.get(i));
             }
         }
-        return list;
+        if(verifRules(list)){
+            return list;
+        }
+        return Collections.emptyList();
+    }
+    public boolean verifRules(List<Position> list){
+        Position etang = new Position(0, 0);
+        for(int i=0;i<list.size();i++){
+            if(list.get(i)==etang||list.size()<=4){
+                return true;
+            }
+        }
+        return false;
     }
     public Position getNeighbourPosbyindex(int index){
         Position direction=adjacentPos.get(index);
