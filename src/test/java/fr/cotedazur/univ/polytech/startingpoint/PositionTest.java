@@ -69,6 +69,32 @@ public class PositionTest {
     }
     @Test
     public void testVerifRules(){
+        List<Position> fonctionnel=new ArrayList<>();
+        Position hautDroite = new Position(3, 3);
+        Position hautGauche = new Position(3, 1);
+        Position droite = new Position(0, 4);
+        Position etang = new Position(0, 0);
 
+        fonctionnel.add(hautDroite);
+        fonctionnel.add(hautGauche);
+        fonctionnel.add(droite);
+        fonctionnel.add(etang);
+
+        assertTrue(droite.verifRules(fonctionnel));
+        List<Position> nonFonctionnel=new ArrayList<>();
+
+        Position hautDroite2 = new Position(3, 3);
+        Position hautGauche2 = new Position(3, 1);
+        Position droite2 = new Position(0, 4);
+        Position basGauche2 = new Position(-3, 1);
+        Position basDroite2 = new Position(-3, 3);
+
+        nonFonctionnel.add(hautDroite2);
+        nonFonctionnel.add(hautGauche2);
+        nonFonctionnel.add(droite2);
+        nonFonctionnel.add(basGauche2);
+        nonFonctionnel.add(basDroite2);
+
+        assertFalse(droite.verifRules(nonFonctionnel));
     }
 }
