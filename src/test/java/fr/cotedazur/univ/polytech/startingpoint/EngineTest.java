@@ -25,7 +25,7 @@ public class EngineTest {
 
         assertEquals(position, pos, "L'Engine doit renvoyer la Position de la tuile posée");
         assertEquals(2, board.getNumTiles(), "Le plateau doit contenir 2 tuiles (l'étang + la tuile posée)");
-        Tile tile = Board.getHashMap().get(position);
+        Tile tile = board.getTileAt(position);
 
         assertNotNull(tile, "Une tuile doit être présente à la position (1,2)");
         assertEquals(TileColor.GREEN, tile.getColor(),  "La tuile placée doit être de couleur GREEN");
