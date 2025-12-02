@@ -19,13 +19,13 @@ public class RobotTest {
         int width = 2;
         TileColor color = TileColor.GREEN;
 
-        robot.placeTileAt(height, width, color);
-        assertEquals(2, board.getNumTiles(), "Le plateau doit contenir 2 tuiles (l'étang + la tuile placée par le robot)");
-        Position position = new Position(height, width);
-        Tile tile = Board.getHashMap().get(position);
+        Position position = robot.placeTileAt(height, width, color);
 
+        Position expectedposition = new Position(height, width);
+        Tile tile = Board.getHashMap().get(position);
+        assertEquals(expectedposition, position, "Le robot doit renvoyer la Position de la tuile posée");
+        assertEquals(2, board.getNumTiles(), "Le plateau doit contenir 2 tuiles (l'étang + la tuile placée par le robot)");
         assertNotNull(tile, "Une tuile doit être présente à la position (1,2)");
-        assertEquals(TileColor.GREEN, tile.getColor(),
-                "La tuile placée par le robot doit être de couleur GREEN");
+        assertEquals(TileColor.GREEN, tile.getColor(), "La tuile placée par le robot doit être de couleur GREEN");
     }
 }

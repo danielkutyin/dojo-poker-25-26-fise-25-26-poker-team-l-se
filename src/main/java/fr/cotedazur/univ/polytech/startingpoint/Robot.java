@@ -7,9 +7,9 @@ public class Robot {
         this.engine = engine;
     }
 
-    /** le robott donne l'ordre à l'engine pour placer la tuile aux coord choisies **/
+    /** le robott donne l'ordre à l'engine pour placer la tuile aux coord choisies et récuperer la position **/
 
-    public void placeTileAt (int height, int width, TileColor color){
-        engine.placeTile(height, width, color);
+    public Position placeTileAt (int height, int width, TileColor color){
+       return engine.placeTile(height, width, color);
     }
 }

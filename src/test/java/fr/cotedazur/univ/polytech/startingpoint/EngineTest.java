@@ -17,11 +17,14 @@ public class EngineTest {
         int height = 1;
         int width = 2;
         TileColor color = TileColor.GREEN;
-        engine.placeTile(height, width, color);
 
-        assertEquals(2, board.getNumTiles(), "Le plateau doit contenir 2 tuiles (l'étang + la tuile placée)");
+        Position pos = engine.placeTile(height, width, color);
 
         Position position = new Position(height, width);
+
+
+        assertEquals(position, pos, "L'Engine doit renvoyer la Position de la tuile posée");
+        assertEquals(2, board.getNumTiles(), "Le plateau doit contenir 2 tuiles (l'étang + la tuile posée)");
         Tile tile = Board.getHashMap().get(position);
 
         assertNotNull(tile, "Une tuile doit être présente à la position (1,2)");
