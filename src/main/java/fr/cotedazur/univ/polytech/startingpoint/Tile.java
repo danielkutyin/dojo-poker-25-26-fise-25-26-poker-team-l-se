@@ -10,6 +10,7 @@ public class Tile {
         this.color = color;
     }
 
+
     public Position getPosition() {
         return pos;
     }

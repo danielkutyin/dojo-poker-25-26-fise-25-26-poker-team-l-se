@@ -1,15 +1,24 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-public class Robot {
-    private final Engine engine;
+import java.util.Random;
 
-    public Robot(Engine engine){
-        this.engine = engine;
+public class Robot {
+    private Board board;
+
+    public Robot( Board board) {
+        this.board = board;
     }
 
-    /** le robott donne l'ordre à l'engine pour placer la tuile aux coord choisies et récuperer la position **/
+    /** le robot donne l'ordre à l'engine pour placer la tuile aux coord choisies et récuperer la position **/
 
-    public Position placeTileAt (int height, int width, TileColor color){
-       return engine.placeTile(height, width, color);
+
+
+    public void placeTileAdEtang (){
+        Board b =this.board;
+        Position pond = this.board.getPond().getPosition();
+        Position p = pond.getNeighbourPosbyindex(new Random().nextInt(6));// position tuile aléatoire adjacente
+        TileColor color = TileColor.values()[new Random().nextInt(TileColor.values().length)];// couleur aléatoire
+        b.addTile(new Tile(p,color),p);
+
     }
 }

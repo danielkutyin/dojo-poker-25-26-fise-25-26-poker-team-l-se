@@ -27,10 +27,24 @@ public class Board {
     public int getNumTiles() {
         return tiles.size();
     }
-    public void setTile(Tile tile,Position pos){
-        tiles.put(pos,tile);
+    public void addTile(Tile tile,Position pos){
+        if(tiles.containsKey(pos)) {
+            throw new ArgumentalreadyExistOrnotAdj("this tile " + pos.toString() + "already exists");
+        }
+        boolean isadj=false;
+        for (Position p : tiles.keySet()) {
+            if (p.isNeighbour(pos)) {
+                tiles.put(p, tile);
+                isadj=true;
+                break;
+            }
+        }
+        if(!isadj){
+            throw new ArgumentalreadyExistOrnotAdj("this tile " + pos.toString() + "can not be added");
+        }
     }
     public static Map<Position, Tile> getHashMap(){
         return tiles;
     }
+
 }

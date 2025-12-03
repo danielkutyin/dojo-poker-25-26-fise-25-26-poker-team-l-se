@@ -31,7 +31,7 @@ public class Position {
             new Position(-1, 1), //bas à gauche
             new Position(0, 1) // bas à droite
     );
-
+    /*
     public List<Position> setNeighbours(){
         Position hautDroite = new Position(height+3, width+1);
         Position hautGauche = new Position(height+3, width-1);
@@ -67,7 +67,7 @@ public class Position {
             }
         }
         return false;
-    }
+    }*/
     public Position getNeighbourPosbyindex(int index){
         Position direction=adjacentPos.get(index);
         return new Position( this.height+direction.height ,  this.width+direction.width );
