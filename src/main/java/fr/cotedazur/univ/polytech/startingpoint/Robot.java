@@ -19,7 +19,7 @@ public class Robot {
         Position pond = this.board.getPond().getPosition();
         while(true) {
             Position p = pond.getNeighbourPosbyindex(new Random().nextInt(6));// position tuile aléatoire adjacente
-            TileColor color = TileColor.values()[new Random().nextInt(TileColor.values().length)];// couleur aléatoire
+            TileColor color = TileColor.values()[new Random().nextInt(TileColor.values().length-1) + 1];// couleur aléatoire
             try {
                 b.addTile(new Tile(p, color), p);
                 break;

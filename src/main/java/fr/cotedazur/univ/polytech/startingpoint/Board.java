@@ -47,4 +47,13 @@ public class Board {
         return tiles;
     }
 
+    public void displayBoard(){
+        System.out.println("------------Board------------");
+        tiles.forEach((pos,tile)->{
+            System.out.print("Tile at" + pos.toString() + " :"+ tile.getColor().toString()+"\n");
+
+        });
+        System.out.println("-----------------------------\n");
+    }
+
 }
