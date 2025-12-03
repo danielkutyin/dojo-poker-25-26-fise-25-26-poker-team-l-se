@@ -34,7 +34,7 @@ public class Board {
         boolean isadj=false;
         for (Position p : tiles.keySet()) {
             if (p.isNeighbour(pos)) {
-                tiles.put(p, tile);
+                tiles.put(pos, tile);
                 isadj=true;
                 break;
             }

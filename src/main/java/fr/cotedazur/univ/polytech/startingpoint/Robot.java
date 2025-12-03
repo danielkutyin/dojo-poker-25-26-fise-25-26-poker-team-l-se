@@ -14,11 +14,19 @@ public class Robot {
 
 
     public void placeTileAdEtang (){
-        Board b =this.board;
+
+        Board b = this.board;
         Position pond = this.board.getPond().getPosition();
-        Position p = pond.getNeighbourPosbyindex(new Random().nextInt(6));// position tuile aléatoire adjacente
-        TileColor color = TileColor.values()[new Random().nextInt(TileColor.values().length)];// couleur aléatoire
-        b.addTile(new Tile(p,color),p);
+        while(true) {
+            Position p = pond.getNeighbourPosbyindex(new Random().nextInt(6));// position tuile aléatoire adjacente
+            TileColor color = TileColor.values()[new Random().nextInt(TileColor.values().length)];// couleur aléatoire
+            try {
+                b.addTile(new Tile(p, color), p);
+                break;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
     }
 }
