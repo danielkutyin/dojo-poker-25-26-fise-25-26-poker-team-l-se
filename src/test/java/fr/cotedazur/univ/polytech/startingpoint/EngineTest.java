@@ -2,36 +2,36 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EngineTest {
 
     @Test
-    void verificationplaceTile(){
-
-        Board.getHashMap().clear(); /** on part d'une map vide **/
-
+    public void testPlayOneTurnAddsTileAndScore(){
         Board board = new Board();
-        Engine engine = new Engine(board);
-        int height = 1;
-        int width = 2;
-        TileColor color = TileColor.GREEN;
+        Robot r1 = new Robot(board);
+        Robot r2 = new Robot(board);
+        Robot[] robots = {r1,r2};
 
-        Position pos = engine.placeTile(height, width, color);
-
-        Position position = new Position(height, width);
-
-
-        assertEquals(position, pos, "L'Engine doit renvoyer la Position de la tuile posée");
-        assertEquals(2, board.getNumTiles(), "Le plateau doit contenir 2 tuiles (l'étang + la tuile posée)");
-        Tile tile = board.getTileAt(position);
-
-        assertNotNull(tile, "Une tuile doit être présente à la position (1,2)");
-        assertEquals(TileColor.GREEN, tile.getColor(),  "La tuile placée doit être de couleur GREEN");
-
-
-
+        Engine engine = new Engine(board,robots);
+        int initialTiles= board.getNumTiles();
+        int initialScoreR1= r1.getScore();
+        engine.playOneTurn(0);
+        assertEquals(initialTiles+1,board.getNumTiles());
+        assertEquals(initialScoreR1,r1.getScore());
     }
 
+    @Test
+    public void testRunDemoAddsToBoard(){
+        Board board = new Board();
+        Robot r1 = new Robot(board);
+        Robot r2 = new Robot(board);
+        Robot[] robots = {r1,r2};
+        Engine engine = new Engine(board,robots);
+        engine.runDemo();
+        assertEquals(7,board.getNumTiles());
+        int totalScore= r1.getScore()+r2.getScore();
+        assertEquals(6,totalScore);
+        assertTrue(r1.getScore()>0||r2.getScore()>0);
+    }
 }

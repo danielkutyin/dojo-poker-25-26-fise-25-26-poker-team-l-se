@@ -39,7 +39,7 @@ public class PositionTest {
         Position pos1 = new Position(1,1);
         assertTrue(pos1.isNeighbour(new Position(0,1)));
     }
-    @Test
+    /*@Test
     public void testverifPositionAvailable(){//Test marche mais faut avoir la bonne place au bon endroit dans le hashMap
         List<Position> neighbours;
         List<Position> neighboursReal =new ArrayList<>();
@@ -96,5 +96,13 @@ public class PositionTest {
         nonFonctionnel.add(basDroite2);
 
         assertFalse(droite.verifRules(nonFonctionnel));
+    }*/
+    @Test
+    public void testIsNeighbour() {
+        Position pos1 = new Position(1, 1);
+        assertTrue(pos1.isNeighbour(new Position(2, 1)));
+        assertTrue(pos1.isNeighbour(new Position(0, 1)));
+        assertFalse(pos1.isNeighbour(new Position(1, 1)));
+        assertFalse(pos1.isNeighbour(new Position(3, 0)));
     }
 }

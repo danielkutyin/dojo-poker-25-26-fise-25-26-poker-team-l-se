@@ -7,9 +7,7 @@ import java.util.List;
 public class Position {
     private int height;
     private int width;
-    private List<Position> neighbours = new ArrayList<>();
-    private Board board;
-    private Position pos;
+
 
 
     public Position(int height, int width){
@@ -73,7 +71,7 @@ public class Position {
         return new Position( this.height+direction.height ,  this.width+direction.width );
     }
 
-    public Boolean isNeighbour(Position pos){
+    public boolean isNeighbour(Position pos){
         for(int i=0;i<adjacentPos.size();i++){
             if(getNeighbourPosbyindex(i).equals(pos)){
                 return true;
