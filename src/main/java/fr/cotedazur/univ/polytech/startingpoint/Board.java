@@ -1,12 +1,11 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Board {
 
-    private static final Map<Position, Tile> tiles = new HashMap<>();
-    private Tile pond;
+    private final Map<Position, Tile> tiles = new HashMap<>();
+    private final Tile pond;
 
     public Board() {
         this.pond=new Tile(new Position(0,0), TileColor.POND);
@@ -27,14 +26,16 @@ public class Board {
     public int getNumTiles() {
         return tiles.size();
     }
-    public void addTile(Tile tile,Position pos){
+
+    public void addTile(Tile tile){
+        Position pos=tile.getPosition();
         if(tiles.containsKey(pos)) {
             throw new ArgumentalreadyExistOrnotAdj("this tile " + pos.toString() + "already exists");
         }
         boolean isadj=false;
         for (Position p : tiles.keySet()) {
             if (p.isNeighbour(pos)) {
-                tiles.put(pos, tile);
+
                 isadj=true;
                 break;
             }
@@ -42,10 +43,9 @@ public class Board {
         if(!isadj){
             throw new ArgumentalreadyExistOrnotAdj("this tile " + pos.toString() + "can not be added");
         }
+        tiles.put(pos, tile);
     }
-    public static Map<Position, Tile> getHashMap(){
-        return tiles;
-    }
+
 
     public void displayBoard(){
         System.out.println("------------Board------------");

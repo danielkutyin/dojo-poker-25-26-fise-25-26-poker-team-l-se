@@ -11,6 +11,7 @@ public class Tile {
     }
 
 
+
     public Position getPosition() {
         return pos;
     }

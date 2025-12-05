@@ -8,15 +8,13 @@ public class Main {
 
 
         Board board = new Board();
-        board.displayBoard();
-        Robot[] robots = {new Robot(board),new Robot(board)};
-        int turn = 0;
-        while(board.getNumTiles()<7){
-         robots[turn].placeTileAdEtang();
-         board.displayBoard();
-         turn=(turn+1)%robots.length;
-        }
+        Robot r1 = new Robot(board);
+        Robot r2 = new Robot(board);
 
+        Robot[] robots={r1,r2};
+
+        Engine engine= new Engine(board,robots);
+        engine.runDemo();
 
 
 
