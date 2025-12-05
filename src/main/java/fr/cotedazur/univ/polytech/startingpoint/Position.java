@@ -9,7 +9,6 @@ public class Position {
     private int width;
 
 
-
     public Position(int height, int width){
         this.height =height;
         this.width =width;
@@ -29,43 +28,7 @@ public class Position {
             new Position(-1, 1), //bas à gauche
             new Position(0, 1) // bas à droite
     );
-    /*
-    public List<Position> setNeighbours(){
-        Position hautDroite = new Position(height+3, width+1);
-        Position hautGauche = new Position(height+3, width-1);
-        Position droite = new Position(height, width+2);
-        Position gauche = new Position(height, width-2);
-        Position basGauche = new Position(height-3, width-1);
-        Position basDroite = new Position(height-3, width+1);
 
-        neighbours.add(hautDroite);
-        neighbours.add(hautGauche);
-        neighbours.add(droite);
-        neighbours.add(gauche);
-        neighbours.add(basDroite);
-        neighbours.add(basGauche);
-        return verifPositionAvailable(neighbours);
-    }
-    public List<Position> verifPositionAvailable(List<Position> list){
-        for(int i=0;i<list.size();i++) {
-            if (Board.getHashMap().containsKey(list.get(i))) {
-                list.remove(list.get(i));
-            }
-        }
-        if(verifRules(list)){
-            return list;
-        }
-        return Collections.emptyList();
-    }
-    public boolean verifRules(List<Position> list){
-        Position etang = new Position(0, 0);
-        for(int i=0;i<list.size();i++){
-            if(list.get(i)==etang||list.size()<=4){
-                return true;
-            }
-        }
-        return false;
-    }*/
     public Position getNeighbourPosbyindex(int index){
         Position direction=adjacentPos.get(index);
         return new Position( this.height+direction.height ,  this.width+direction.width );

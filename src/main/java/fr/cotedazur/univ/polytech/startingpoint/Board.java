@@ -26,7 +26,6 @@ public class Board {
     public int getNumTiles() {
         return tiles.size();
     }
-
     public void addTile(Tile tile){
         Position pos=tile.getPosition();
         if(tiles.containsKey(pos)) {
