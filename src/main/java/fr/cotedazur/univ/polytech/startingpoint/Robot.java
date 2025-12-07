@@ -9,17 +9,18 @@ public class Robot {
     private Board board;
     private final Random random = new Random();
     private final String name;
-    private int score=0;
+    private int score = 0;
 
-    public Robot( Board board) {
+    public Robot(Board board) {
         this.board = board;
-        this.name="Robot"+(nextId++);
+        this.name = "Robot" + (nextId++);
     }
 
 
     public String getName() {
         return name;
     }
+
     public int getScore() {
         return score;
     }
@@ -27,13 +28,23 @@ public class Robot {
     public void addScore(int delta) {
         this.score += delta;
     }
-    /** le robot donne l'ordre à l'engine pour placer la tuile aux coord choisies et récuperer la position **/
 
+    /**
+     * le robot donne l'ordre à l'engine pour placer la tuile aux coord choisies et récuperer la position
+     **/
 
 
     public void placeTileAdEtang() {
 
-        Position pondPos = board.getPond().getPosition();
+        List<Position> playable = board.getPlayablePositions();
+
+        Position chosen = playable.get(random.nextInt(playable.size()));
+        Tile tile = new Tile(chosen, TileColor.GREEN);
+        board.addTile(tile);
+        addScore(1);
+        System.out.println(name + "placer tuile à " + chosen + " score =" + score);
+
+/*        Position pondPos = board.getPond().getPosition();
         List<Position> voisins = board.setNeighbours(pondPos);
         List<Position> libres = board.listBon(voisins);
 
@@ -45,7 +56,7 @@ public class Robot {
         board.addTile(new Tile(chosen, TileColor.GREEN));
         addScore(1);
         System.out.println(name + "place tile at" + chosen + "score =" + score);
-    }
+    }*/
 //    public void placeTileAdEtang (){
 //
 //        Position pond = this.board.getPond().getPosition();
@@ -76,5 +87,6 @@ public class Robot {
 //        board.addTile(new Tile(chosen,TileColor.GREEN));
 //        addScore(1);
 //        System.out.println(name + " pose une tuile  en "+ chosen + " | score = "+score);
-//    }
+  }
 }
+

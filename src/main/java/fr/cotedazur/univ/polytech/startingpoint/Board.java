@@ -63,6 +63,24 @@ public class Board {
         }
         return count >= 2;
     }
+
+    public List<Position> getPlayablePositions(){
+        List<Position> playablePositions = new ArrayList<>();
+        for(Position existing : tiles.keySet()){
+            List<Position> voisins = setNeighbours(existing);
+            for (Position voisin : voisins) {
+                if(tiles.containsKey(voisin)) continue;
+                if(verifRulesPond(voisin) || verifRule2Touch(voisin)){
+                    if(!playablePositions.contains(voisin)){
+                        playablePositions.add(voisin);
+                    }
+                }
+
+            }
+        }
+        return playablePositions;
+    }
+
     public void addTile(Tile tile){
 //        boolean isadj=false;
 //        for (Position p : tiles.keySet()) {

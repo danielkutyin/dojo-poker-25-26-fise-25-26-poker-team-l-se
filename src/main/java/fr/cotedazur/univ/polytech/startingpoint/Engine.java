@@ -39,7 +39,7 @@ public class Engine {
         int turn=0;
         int turnNumber=1;
 
-        while(board.getNumTiles()<7){
+        while(board.getNumTiles()<14){
             System.out.println("--- Tour "+turnNumber+" ---");
             playOneTurn(turn);
             turn=(turn+1)%robots.length;
