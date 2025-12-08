@@ -13,4 +13,12 @@ public class DirectionTest {
         assertEquals(finalTruePositionReach,Direction.move(startPosition,Direction.Droite));
         assertNotEquals(finalFalsePositionReach,Direction.move(startPosition,Direction.Droite));
     }
+    @Test
+    public void testMoveALot(){
+        Position finalTruePositionReach = new Position(3,0);
+        Position finalFalsePositionReach = new Position(4,0);
+        Position startPosition = new Position(0,0);
+        assertEquals(finalTruePositionReach,Direction.moveALot(startPosition,Direction.Droite,3));
+        assertNotEquals(finalFalsePositionReach,Direction.moveALot(startPosition,Direction.Droite,3));
+    }
 }

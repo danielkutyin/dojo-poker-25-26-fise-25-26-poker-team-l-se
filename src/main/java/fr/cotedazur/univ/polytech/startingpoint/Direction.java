@@ -22,4 +22,10 @@ public enum Direction {
         int posWidth=pos.getWidth()+direction.width;
         return new Position(posHeight,posWidth);
     }
+    public static Position moveALot(Position pos, Direction direction,int number){
+        for(int i =0;i<number;i++){
+            pos=move(pos,direction);
+        }
+        return pos;
+    }
 }
