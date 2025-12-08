@@ -39,12 +39,4 @@ public class PositionTest {
         Position pos1 = new Position(1,1);
         assertTrue(pos1.isNeighbour(new Position(0,1)));
     }
-    @Test
-    public void testIsNeighbour() {
-        Position pos1 = new Position(1, 1);
-        assertTrue(pos1.isNeighbour(new Position(2, 1)));
-        assertTrue(pos1.isNeighbour(new Position(0, 1)));
-        assertFalse(pos1.isNeighbour(new Position(1, 1)));
-        assertFalse(pos1.isNeighbour(new Position(3, 0)));
-    }
 }

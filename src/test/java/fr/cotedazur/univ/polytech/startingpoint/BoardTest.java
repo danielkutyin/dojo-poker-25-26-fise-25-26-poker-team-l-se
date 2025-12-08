@@ -2,8 +2,7 @@ package fr.cotedazur.univ.polytech.startingpoint;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
     @Test
@@ -34,5 +33,28 @@ public class BoardTest {
         Tile tile=new Tile(pos,TileColor.GREEN);
         assertThrows(IllegalArgumentException.class, () -> board.addTile(tile));
     }
+    @Test
+    public void testVerifRulePond(){
+        Board board = new Board();
+        Position closeToPond = new Position(0,1);
+        Position farFromPond = new Position(0,2);
+        assertTrue(board.verifRulesPond(closeToPond));
+        assertFalse(board.verifRulesPond(farFromPond));
+    }
 
+    @Test
+    public void testVerifRule2Touch(){
+        Board board = new Board();
+        Position right=new Position(0,1);
+        Tile tilePondRight=new Tile(right,TileColor.GREEN);
+        Position top=new Position(1,0);
+        Tile tilePondTop=new Tile(top,TileColor.GREEN);
+
+        Position goodPos=new Position(1,1);
+        Position badPos=new Position(-1,-1);
+        board.addTile(tilePondRight);
+        board.addTile(tilePondTop);
+        assertTrue(board.verifRule2Touch(goodPos));
+        assertFalse(board.verifRule2Touch(badPos));
+    }
 }

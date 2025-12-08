@@ -27,30 +27,20 @@ public class Board {
     public int getNumTiles() {
         return tiles.size();
     }
-    public void setTile(Tile tile,Position position){
-        tiles.put(position,tile);
-    }
-    public List<Position> listBon(List<Position> voisins){
-        List<Position> voisinsVrai = new ArrayList<>();
-        for (Position voisin : voisins) {
-            if (!(tiles.containsKey(voisin))) voisinsVrai.add(voisin);
-        }
-        return voisinsVrai;
-    }
     public List<Position> setNeighbours(Position pos){
         List<Position> neighbours = new ArrayList<>();
-        neighbours.add(new Position(pos.getHeight() + 1, pos.getWidth() - 1)); // hautDroite
-        neighbours.add(new Position(pos.getHeight(),     pos.getWidth() - 1)); // hautGauche
-        neighbours.add(new Position(pos.getHeight() + 1, pos.getWidth()));     // droite
-        neighbours.add(new Position(pos.getHeight() - 1, pos.getWidth()));     // gauche
-        neighbours.add(new Position(pos.getHeight() - 1, pos.getWidth() + 1)); // basGauche
-        neighbours.add(new Position(pos.getHeight(),     pos.getWidth() + 1)); // basDroite
+        neighbours.add(new Position(pos.getHeight() + 1, pos.getWidth() - 1));//HautDroite
+        neighbours.add(new Position(pos.getHeight(),     pos.getWidth() - 1));//HautGauche
+        neighbours.add(new Position(pos.getHeight() + 1, pos.getWidth()));//Droite
+        neighbours.add(new Position(pos.getHeight() - 1, pos.getWidth()));//Gauche
+        neighbours.add(new Position(pos.getHeight() - 1, pos.getWidth() + 1));//BasGauche
+        neighbours.add(new Position(pos.getHeight(),     pos.getWidth() + 1));//BasDroite
         return neighbours;
     }
     public boolean verifRulesPond(Position pos){
         List<Position> vois = setNeighbours(pos);
         for (Position v : vois) {
-            if (v.equals(pond.getPosition())) {
+            if (v.equals(pond.getPosition())) {//Regarde si dans la liste des voisins de pos il y a le pond
                 return true;
             }
         }
@@ -58,7 +48,7 @@ public class Board {
     }
     public boolean verifRule2Touch(Position pos){
         int count = 0;
-        for (Position n : setNeighbours(pos)) {
+        for (Position n : setNeighbours(pos)) { // compte le nombre de voisins de pos et si il y en a plus de 2 alors on verifie la regle
             if (tiles.containsKey(n)) count++;
         }
         return count >= 2;
@@ -82,33 +72,23 @@ public class Board {
     }
 
     public void addTile(Tile tile){
-//        boolean isadj=false;
-//        for (Position p : tiles.keySet()) {
-//
-//            if (p.isNeighbour(pos)) {
-//
-//                isadj=true;
-//                break;
-//            }
-//        }
         Position pos = tile.getPosition();
+        //si il y existe déjà la tuile on ne peut pas la poser
         if (tiles.containsKey(pos)) {
             throw new ArgumentalreadyExistOrnotAdj("Tile already exists at " + pos);
         }
+        //on regarde la premiere regle (POND)
         if (verifRulesPond(pos)) {
             tiles.put(pos, tile);
             return;
         }
-
+        //sinon on  regarde si la deuxieme est verifié
         if (verifRule2Touch(pos)) {
             tiles.put(pos, tile);
             return;
         }
-
+        //sinon exception
         throw new ArgumentalreadyExistOrnotAdj("this tile " + pos.toString() + " cannot be added");
-//        if(!isadj){
-//            throw new ArgumentalreadyExistOrnotAdj("this tile " + pos.toString() + "can not be added");
-//        }
     }
 
 
