@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Board {
 
-    private final Map<Position, Tile> tiles = new HashMap<>();
+    private static final Map<Position, Tile> tiles = new HashMap<>();
     private final Tile pond;
     private List<Position> neighbours = new ArrayList<>();
 
@@ -26,6 +26,9 @@ public class Board {
     //retourne le nombre des tuiles
     public int getNumTiles() {
         return tiles.size();
+    }
+    public static Map<Position, Tile> getHashmap(){
+        return tiles;
     }
     public List<Position> setNeighbours(Position pos){
         List<Position> neighbours = new ArrayList<>();

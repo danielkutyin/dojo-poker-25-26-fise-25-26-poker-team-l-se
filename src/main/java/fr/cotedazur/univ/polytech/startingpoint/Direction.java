@@ -1,5 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import java.util.Map;
+
 public enum Direction {
     BasDroite(0,1),
     BasGauche(-1,1),
@@ -11,7 +13,6 @@ public enum Direction {
     private int height;
     private int width;
     private Position pos;
-
 
     Direction(int height,int width){
         this.height = height;
@@ -27,5 +28,13 @@ public enum Direction {
             pos=move(pos,direction);
         }
         return pos;
+    }
+    public static int rangeMovement(Position pos,Direction direction){
+        int compteur=0;
+        while(Board.getHashmap().containsKey(pos)){
+            pos=move(pos,direction);
+            compteur++;
+        }
+        return compteur-1;
     }
 }
