@@ -35,6 +35,7 @@ public enum Direction {
             pos=move(pos,direction);
             compteur++;
         }
+
         return compteur-1;
     }
 }
