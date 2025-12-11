@@ -1,4 +1,8 @@
-package fr.cotedazur.univ.polytech.startingpoint;
+package fr.cotedazur.univ.polytech.startingpoint.takenoko.board;
+
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.characters.Gardener;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.characters.Panda;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.exceptions.ArgumentalreadyExistOrnotAdj;
 
 import java.util.*;
 
@@ -8,11 +12,13 @@ public class Board {
     private final Tile pond;
     private Panda panda;
     private List<Position> neighbours = new ArrayList<>();
+    private final Gardener gardener;
 
     public Board() {
         this.pond=new Tile(new Position(0,0), TileColor.POND);
         tiles.put(pond.getPosition(),pond);
         this.panda =new Panda();
+        this.gardener = new Gardener();
     }
 
     //retourne la tuile etang
@@ -97,6 +103,19 @@ public class Board {
     }
     public Panda getPanda(){
         return this.panda;
+    }
+
+    public Gardener getGardener() {
+        return gardener;
+    }
+
+    public void plantBambooOnGardenerTile() {
+        Tile tile = tiles.get(gardener.getPos());
+        if (tile != null) {
+            tile.addBambou();
+            System.out.println("Un bambou pousse sur la tuile " + gardener.getPos()
+                    + " (total = " + tile.getNbBambous() + ")");
+        }
     }
 
 
