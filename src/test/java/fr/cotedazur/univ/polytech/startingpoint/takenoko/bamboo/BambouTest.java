@@ -1,4 +1,4 @@
-package fr.cotedazur.univ.polytech.startingpoint;
+package fr.cotedazur.univ.polytech.startingpoint.takenoko.bamboo;
 
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.TileColor;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.elements.Bambou;

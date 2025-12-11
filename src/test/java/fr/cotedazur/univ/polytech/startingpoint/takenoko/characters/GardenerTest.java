@@ -1,10 +1,9 @@
-package fr.cotedazur.univ.polytech.startingpoint;
+package fr.cotedazur.univ.polytech.startingpoint.takenoko.characters;
 
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Board;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Position;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Tile;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.TileColor;
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.characters.Gardener;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

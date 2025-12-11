@@ -1,7 +1,6 @@
-package fr.cotedazur.univ.polytech.startingpoint;
+package fr.cotedazur.univ.polytech.startingpoint.takenoko.board;
 
 
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

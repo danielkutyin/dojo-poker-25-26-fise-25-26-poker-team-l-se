@@ -1,9 +1,5 @@
-package fr.cotedazur.univ.polytech.startingpoint;
+package fr.cotedazur.univ.polytech.startingpoint.takenoko.board;
 
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Board;
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Position;
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Tile;
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.TileColor;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.exceptions.ArgumentalreadyExistOrnotAdj;
 import org.junit.jupiter.api.Test;
 
