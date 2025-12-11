@@ -1,4 +1,7 @@
-package fr.cotedazur.univ.polytech.startingpoint;
+package fr.cotedazur.univ.polytech.startingpoint.takenoko.characters;
+
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.exceptions.ArgumentalreadyExistOrnotAdj;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.*;
 
 import java.util.List;
 import java.util.Random;

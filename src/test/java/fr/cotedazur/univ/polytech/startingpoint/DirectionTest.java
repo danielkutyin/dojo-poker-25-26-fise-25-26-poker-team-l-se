@@ -1,6 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
 
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,7 +11,7 @@ public class DirectionTest {
         Position finalTruePositionReach = new Position(1,0);
         Position finalFalsePositionReach = new Position(1,1);
         Position startPosition = new Position(0,0);
-        assertEquals(finalTruePositionReach,Direction.move(startPosition,Direction.Droite));
+        assertEquals(finalTruePositionReach, Direction.move(startPosition,Direction.Droite));
         assertNotEquals(finalFalsePositionReach,Direction.move(startPosition,Direction.Droite));
     }
     @Test
@@ -31,7 +32,7 @@ public class DirectionTest {
         Position bliblibli = new Position(2,1);
         Position nextToNext = new Position(3,0);
 
-        Tile startTile=new Tile(startPosition,TileColor.GREEN);
+        Tile startTile=new Tile(startPosition, TileColor.GREEN);
         Tile blablatile=new Tile(blabla,TileColor.GREEN);
         Tile blablablatile=new Tile(blablabla,TileColor.GREEN);
         Tile nextTile=new Tile(next,TileColor.GREEN);

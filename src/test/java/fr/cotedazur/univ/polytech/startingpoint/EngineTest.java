@@ -1,5 +1,8 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Board;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.characters.Robot;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.game.Engine;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

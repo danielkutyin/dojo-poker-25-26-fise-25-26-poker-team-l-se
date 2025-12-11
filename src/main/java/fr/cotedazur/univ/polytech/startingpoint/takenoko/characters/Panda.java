@@ -1,4 +1,6 @@
-package fr.cotedazur.univ.polytech.startingpoint;
+package fr.cotedazur.univ.polytech.startingpoint.takenoko.characters;
+
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Position;
 
 public class Panda {
     private Position pos;
