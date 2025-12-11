@@ -88,5 +88,20 @@ public class Robot {
 //        addScore(1);
 //        System.out.println(name + " pose une tuile  en "+ chosen + " | score = "+score);
   }
+
+    public Position playPandaMove(){
+        int range =  new Random().nextInt(9)+1;//pour ne pas choisir 0
+        Panda po = this.board.getPanda();
+        int i = new Random().nextInt(6);
+        Direction moved = Direction.values()[i];
+        Position placed = moved.moveALot(po.getPos(),moved,i);
+        if (this.board.getHashmap().containsKey(placed)){
+            po.setPos(placed);
+            return placed;
+        }
+        else{
+            throw new ArgumentalreadyExistOrnotAdj("Tile Does not exists " + placed);
+        }
+    }
 }
 

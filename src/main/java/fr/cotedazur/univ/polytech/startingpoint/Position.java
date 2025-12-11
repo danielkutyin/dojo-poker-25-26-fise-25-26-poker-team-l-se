@@ -9,7 +9,6 @@ public class Position {
     private int height;
     private int width;
 
-
     public Position(int height, int width){
         this.height =height;
         this.width =width;

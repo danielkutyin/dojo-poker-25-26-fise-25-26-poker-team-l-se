@@ -6,11 +6,13 @@ public class Board {
 
     private static final Map<Position, Tile> tiles = new HashMap<>();
     private final Tile pond;
+    private Panda panda;
     private List<Position> neighbours = new ArrayList<>();
 
     public Board() {
         this.pond=new Tile(new Position(0,0), TileColor.POND);
         tiles.put(pond.getPosition(),pond);
+        this.panda =new Panda();
     }
 
     //retourne la tuile etang
@@ -92,6 +94,9 @@ public class Board {
         }
         //sinon exception
         throw new ArgumentalreadyExistOrnotAdj("this tile " + pos.toString() + " cannot be added");
+    }
+    public Panda getPanda(){
+        return this.panda;
     }
 
 

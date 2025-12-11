@@ -1,5 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint;
 
+import java.util.Random;
+
 public class Engine {
 
     private final Board board;
@@ -21,6 +23,21 @@ public class Engine {
         System.out.println("---Tour de "+robot.getName()+"---");
         robot.placeTileAdEtang();
         board.displayBoard();
+    }
+
+    public void playPandaTurn(int index){
+        Robot robot = robots[index];
+        while (true){
+            try{
+            Position place =robot.playPandaMove();
+            System.out.println("panda moves to " + place.toString());
+                break;
+            }
+            catch(ArgumentalreadyExistOrnotAdj e){
+                System.out.println(e.getMessage());
+            }
+        }
+
     }
 
     public Robot getWinner(){
@@ -60,6 +77,7 @@ public class Engine {
             Robot winner = getWinner();
             System.out.println("--- Gagnant : " + winner.getName() + " avec " + winner.getScore() + " points");
         }
+        playPandaTurn(turn);
 
 
     }
