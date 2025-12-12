@@ -3,6 +3,7 @@ package fr.cotedazur.univ.polytech.startingpoint.takenoko.characters;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.exceptions.ArgumentalreadyExistOrnotAdj;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -93,12 +94,16 @@ public class Robot {
   }
 
     public Position playPandaMove(){
-        int range =  new Random().nextInt(9)+1;//pour ne pas choisir 0
         Panda po = this.board.getPanda();
-        int i = new Random().nextInt(6);
-        Direction moved = Direction.values()[i];
-        Position placed = moved.move(po.getPos(),moved,i);
-        if (this.board.getHashmap().containsKey(placed)){
+        List<Direction> directionsAvailable = new ArrayList<>();
+        for(int i =0;i<6;i++){
+            if(Direction.rangeMovement(po.getPos(),Direction.values()[i]) >0) directionsAvailable.add(Direction.values()[i]);
+        }
+        int i = new Random().nextInt(directionsAvailable.size());
+        Direction moved = directionsAvailable.get(i);
+        int randMove = new Random().nextInt(Direction.rangeMovement(po.getPos(),directionsAvailable.get(i)));
+        Position placed = moved.move(po.getPos(),moved,randMove);
+        if (board.getHashmap().containsKey(placed)){
             po.setPos(placed);
             return placed;
         }
