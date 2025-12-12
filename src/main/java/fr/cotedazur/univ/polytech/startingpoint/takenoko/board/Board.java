@@ -15,6 +15,9 @@ public class Board {
     private final Gardener gardener;
 
     public Board() {
+        if (tiles.isEmpty()) {
+            resetBoard();
+        }
         this.pond=new Tile(new Position(0,0), TileColor.POND);
         tiles.put(pond.getPosition(),pond);
         this.panda =new Panda();
@@ -126,6 +129,12 @@ public class Board {
 
         });
         System.out.println("-----------------------------\n");
+    }
+
+    public static void resetBoard() {
+        tiles.clear();
+        Tile pond = new Tile(new Position(0, 0), TileColor.POND);
+        tiles.put(pond.getPosition(), pond);
     }
 
 

@@ -1,13 +1,21 @@
 package fr.cotedazur.univ.polytech.startingpoint.takenoko.board;
 
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.exceptions.ArgumentalreadyExistOrnotAdj;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
+    @BeforeEach
+    public void setup() {
+        Board.resetBoard();
+    }
+
     @Test
     public void testBoardStartsWithPond(){
+
+
         Board board = new Board();
         //vérifier le nombre de tuiles placés doit etre a 1 lors de l initialisation
         assertEquals(1,board.getNumTiles());
@@ -32,7 +40,7 @@ public class BoardTest {
         Board board = new Board();
         Position pos=new Position(0,0);
         Tile tile=new Tile(pos,TileColor.GREEN);
-        assertThrows(IllegalArgumentException.class, () -> board.addTile(tile));
+        assertThrows(ArgumentalreadyExistOrnotAdj.class, () -> board.addTile(tile));
     }
     @Test
     public void testVerifRulePond(){

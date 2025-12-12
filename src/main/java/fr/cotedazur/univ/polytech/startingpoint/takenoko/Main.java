@@ -1,7 +1,8 @@
-package fr.cotedazur.univ.polytech.startingpoint.takenoko.game;
+package fr.cotedazur.univ.polytech.startingpoint.takenoko;
 
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Board;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.characters.Robot;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.game.Engine;
 
 public class Main {
 

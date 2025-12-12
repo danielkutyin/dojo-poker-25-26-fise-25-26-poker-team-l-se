@@ -4,11 +4,17 @@ import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Board;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Position;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Tile;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.TileColor;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GardenerTest {
+
+    @BeforeEach
+    void setup() {
+        Board.resetBoard();
+    }
 
     @Test
     public void gardenerStartsOnPond() {
