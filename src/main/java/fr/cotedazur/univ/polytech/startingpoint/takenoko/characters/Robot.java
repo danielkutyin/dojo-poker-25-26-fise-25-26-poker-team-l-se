@@ -97,7 +97,7 @@ public class Robot {
         Panda po = this.board.getPanda();
         int i = new Random().nextInt(6);
         Direction moved = Direction.values()[i];
-        Position placed = moved.moveALot(po.getPos(),moved,i);
+        Position placed = moved.move(po.getPos(),moved,i);
         if (this.board.getHashmap().containsKey(placed)){
             po.setPos(placed);
             return placed;

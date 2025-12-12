@@ -16,27 +16,20 @@ public enum Direction {
         this.height = height;
         this.width = width;
     }
-    public Position getPos(){
-        return this.pos;
-    }
-    public static Position move(Position pos, Direction direction){
-        int posHeight=pos.getHeight()+direction.height;
-        int posWidth=pos.getWidth()+direction.width;
-        return new Position(posHeight,posWidth);
-    }
-    public  Position moveALot(Position pos, Direction direction,int number){
+    public static Position move(Position pos, Direction direction, int number){
         for(int i =0;i<number;i++){
-            pos=move(pos,direction);
+            int posHeight=pos.getHeight()+direction.height;
+            int posWidth=pos.getWidth()+direction.width;
+            pos = new Position(posHeight,posWidth);
         }
         return pos;
     }
     public static int rangeMovement(Position pos,Direction direction){
         int compteur=0;
         while(Board.getHashmap().containsKey(pos)){
-            pos=move(pos,direction);
+            pos=move(pos,direction,1);
             compteur++;
         }
-
         return compteur-1;
     }
 }
