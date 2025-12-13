@@ -16,31 +16,30 @@ public class EngineTest {
 
 
     @Test
-    public void testPlayOneTurnAddsTileAndScore(){
+    public void getWinnerReturnsRobotWithHighestScore() {
         Board board = new Board();
         Robot r1 = new Robot(board);
         Robot r2 = new Robot(board);
         Robot[] robots = {r1,r2};
-
         Engine engine = new Engine(board,robots);
-        int initialTiles= board.getNumTiles();
-        int initialScoreR1= r1.getScore();
-        engine.playOneTurn(0);
-        assertEquals(initialTiles+1,board.getNumTiles());
-        assertEquals(initialScoreR1 + 1,r1.getScore());
+
+        r1.addScore(5);
+        r2.addScore(2);
+        assertEquals(r1.getName(),engine.getWinner().getName());
     }
 
     @Test
-    public void testRunDemoAddsToBoard(){
+    public void getWinnerTie(){
         Board board = new Board();
         Robot r1 = new Robot(board);
         Robot r2 = new Robot(board);
         Robot[] robots = {r1,r2};
         Engine engine = new Engine(board,robots);
-        engine.runDemo();
-        assertEquals(14,board.getNumTiles());
-        int totalScore= r1.getScore()+r2.getScore();
-        assertEquals(board.getNumTiles() - 1,totalScore);
-        assertTrue(r1.getScore()>0||r2.getScore()>0);
+        r1.addScore(5);
+        r2.addScore(5);
+        //pour le moment le 1er robot reste comme gagnat en cas d egalite
+        assertEquals(r1.getName(),engine.getWinner().getName());
     }
+
+
 }

@@ -38,6 +38,14 @@ public class TuileTest {
         assertEquals(4, tile.getNbBambous(), "Une tuile ne doit pas avoir plus de 4 bambous");
     }
 
+    @Test
+    public void noBambouOnPondTile() {
+        Tile pond=new Tile(new Position(0, 0), TileColor.POND);
+        pond.addBambou();
+        assertEquals(0,pond.getNbBambous());
+
+    }
+
 
 
 

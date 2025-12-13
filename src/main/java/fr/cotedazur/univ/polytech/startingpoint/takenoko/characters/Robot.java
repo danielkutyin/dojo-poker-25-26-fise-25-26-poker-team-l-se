@@ -37,7 +37,7 @@ public class Robot {
      **/
 
 
-    public void placeTileAdEtang() {
+    public void playTileTurn() {
 
         List<Position> playable = board.getPlayablePositions();
 
@@ -93,7 +93,7 @@ public class Robot {
   }
 
     public Position playPandaMove(){
-        int range =  new Random().nextInt(9)+1;//pour ne pas choisir 0
+        int range =  new Random().nextInt(6)+1;//pour ne pas choisir 0
         Panda po = this.board.getPanda();
         int i = new Random().nextInt(6);
         Direction moved = Direction.values()[i];
@@ -104,6 +104,30 @@ public class Robot {
         }
         else{
             throw new ArgumentalreadyExistOrnotAdj("Tile Does not exists " + placed);
+        }
+    }
+
+    public void playPandaTurn(){
+        System.out.println("Robot " + name + " chooses to move panda.");
+        while (true){
+            try{
+                Position place =playPandaMove();
+                System.out.println("panda moves to " + place.toString());
+                break;
+            }
+            catch(ArgumentalreadyExistOrnotAdj e){
+                System.out.println(e.getMessage());
+            }
+        }
+
+    }
+
+    public void playTurn(){
+        int choice = random.nextInt(2);
+        if(choice==0){
+            playTileTurn();
+        }else{
+            playPandaTurn();
         }
     }
 }
