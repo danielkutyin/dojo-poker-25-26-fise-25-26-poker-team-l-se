@@ -127,9 +127,12 @@ public class Robot {
         int choice = random.nextInt(2);
         if(choice==0){
             playTileTurn();
-        }else{
+        } else if (choice == 1) {
             playPandaTurn();
+        } else {
+            playGardenerTurn();
         }
+
     }
 
     public Position playGardenerMove() {
@@ -174,6 +177,17 @@ public class Robot {
         }
 
 
+    }
+
+    public void playGardenerTurn() {
+        System.out.println("Robot " + name + " choisit de déplacer le jardinier.");
+        try {
+            Position p = playGardenerMove();
+            System.out.println("Jardinier déplacé en " + p);
+            board.plantBambooOnGardenerTile();
+        } catch (ArgumentalreadyExistOrnotAdj e) {
+            System.out.println("Déplacement jardinier impossible : " + e.getMessage());
+        }
     }
 
 
