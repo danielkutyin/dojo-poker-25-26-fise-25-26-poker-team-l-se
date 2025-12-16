@@ -3,6 +3,7 @@ package fr.cotedazur.univ.polytech.startingpoint.takenoko.characters;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.exceptions.ArgumentalreadyExistOrnotAdj;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -130,5 +131,52 @@ public class Robot {
             playPandaTurn();
         }
     }
+
+    public Position playGardenerMove() {
+        Gardener g = this.board.getGardener();
+        Position start = g.getPos();
+
+        /** Chercher les directions où un mouvement est possible **/
+
+        List<Direction> directionsAvailable = new ArrayList<>();
+        for (Direction dir : Direction.values()) {
+            if (Direction.rangeMovement(start, dir) > 0) {
+                directionsAvailable.add(dir);
+            }
+        }
+
+
+        if (directionsAvailable.isEmpty()) {
+            throw new ArgumentalreadyExistOrnotAdj("No valid direction for Gardener from " + start);
+        }
+
+        /**  Choisir une direction valide **/
+
+        Direction moved = directionsAvailable.get(new Random().nextInt(directionsAvailable.size()));
+
+        /**  Choisir une distance valide **/
+
+        int maxRange = Direction.rangeMovement(start, moved);
+        int dist = new Random().nextInt(maxRange) + 1;
+
+        /**  Calculer la position finale **/
+
+        Position placed = Direction.move(start, moved, dist);
+
+        /** Vérifier la tuile existe **/
+
+        if (board.getHashmap().containsKey(placed)) {
+            g.setPos(placed);
+            System.out.println("Gardener moves from " + start  + " dir=" + moved + " dist=" + dist + " to " + placed);
+            return placed;
+        } else {
+            throw new ArgumentalreadyExistOrnotAdj("Tile does not exist " + placed);
+        }
+
+
+    }
+
+
+
 }
 
