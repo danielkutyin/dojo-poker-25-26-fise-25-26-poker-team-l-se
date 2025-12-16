@@ -2,7 +2,7 @@
 name: User story
 about: Describe this issue template's purpose here.
 title: ''
-labels: 'US'
+labels: US
 assignees: ''
 
 ---
@@ -10,12 +10,16 @@ assignees: ''
 USER STORY
 
 ## User Story
-**As a**
-**I want to** 
-**So that** 
+**En tant que**
+**je veux** 
+**afin de** 
 
-## Acceptance Criteria
-- [ ] *CRITERIA FOR THE USER STORY*
+## Contexte / Règles :
+- [ ] ..
+- [ ] ..
+
+## Critères d’acceptation :
+- [ ] ..
 - [ ] ..
 
 ## Tasks
