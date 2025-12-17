@@ -1,5 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint.takenoko.board;
 
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.characters.Panda;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.exceptions.ArgumentalreadyExistOrnotAdj;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -66,4 +67,29 @@ public class BoardTest {
         assertTrue(board.verifRule2Touch(goodPos));
         assertFalse(board.verifRule2Touch(badPos));
     }
+    @Test
+    public void testPandaeatenBambou(){
+        Board board = new Board();
+        Position right=new Position(0,1);
+        Tile tilePondRight=new Tile(right,TileColor.GREEN);
+        Panda panda=board.getPanda();
+        panda.setPos(right);
+        board.addTile(tilePondRight);
+        board.getTileAt(right).addBambou();
+        assertEquals(1,board.getTileAt(right).getNbBambous());
+        board.eatBambouOnPandaTile();
+        assertEquals(0,board.getTileAt(right).getNbBambous());
+    }
+    @Test
+    public void testGardenerPlantsBamboo() {
+        Board board = new Board();
+        Position right = new Position(0,1);
+        Tile tilePondRight = new Tile(right, TileColor.GREEN);
+        board.getGardener().setPos(right);
+        board.addTile(tilePondRight);
+        assertEquals(0, board.getTileAt(right).getNbBambous());
+        board.plantBambooOnGardenerTile();
+        assertEquals(1, board.getTileAt(right).getNbBambous());
+    }
+
 }
