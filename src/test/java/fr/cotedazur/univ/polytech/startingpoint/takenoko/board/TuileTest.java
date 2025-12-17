@@ -53,6 +53,12 @@ public class TuileTest {
         tile.removeBambou();
         assertEquals(0,tile.getNbBambous());
     }
+    @Test
+    public void removeBambouOnEmptyTile(){
+        Tile tile = new Tile(new Position(1, 0), TileColor.GREEN);
+        tile.removeBambou();
+        assertEquals(0,tile.getNbBambous());
+    }
 
 
 

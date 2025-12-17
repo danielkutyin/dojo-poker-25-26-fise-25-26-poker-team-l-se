@@ -25,6 +25,27 @@ public class RobotTest {
         assertEquals(initialTiles+1,board.getNumTiles());
         assertEquals(initialScore+1,robot.getScore());
     }
+    @Test
+    public void testPlayTilefirst(){
+        Board board = new Board();
+        Robot robot = new Robot(board);
+        Position initialPos=new Position(0,0);
+        assertEquals(initialPos,board.getTileAt(initialPos).getPosition());
+        robot.playTurn();
+        assertEquals(2,board.getNumTiles());
+        robot.playTileTurn();
+        assertEquals(3,board.getNumTiles());
+    }
+    @Test
+    public void testPlayPandaTurnAddScore(){
+        Board board = new Board();
+        Robot robot = new Robot(board);
+        int initialScore=robot.getScore();
+        robot.playTileTurn();
+        robot.playPandaTurn();
+        assertEquals(initialScore+1,robot.getScore());
+    }
+
 
 
 

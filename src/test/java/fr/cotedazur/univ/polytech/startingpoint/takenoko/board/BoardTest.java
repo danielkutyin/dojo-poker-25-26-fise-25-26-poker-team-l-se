@@ -91,5 +91,20 @@ public class BoardTest {
         board.plantBambooOnGardenerTile();
         assertEquals(1, board.getTileAt(right).getNbBambous());
     }
+    @Test
+    public void testGetTileAtNonExistingPosition() {
+        Board board = new Board();
+        Position nonExistingPos = new Position(5,5);
+        assertNull(board.getTileAt(nonExistingPos), "getTileAt should return null for non-existing positions");
+    }
+    @Test
+    public void testIsExistInTiles() {
+        Board board = new Board();
+        Position pondPos = board.getPond().getPosition();
+        assertTrue(board.isExistInTiles(pondPos), "Pond position should exist in tiles");
+
+        Position nonExistingPos = new Position(3,3);
+        assertFalse(board.isExistInTiles(nonExistingPos), "Non-existing position should not exist in tiles");
+    }
 
 }
