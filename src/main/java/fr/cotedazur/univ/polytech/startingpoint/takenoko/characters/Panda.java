@@ -6,7 +6,7 @@ public class Panda {
     private Position pos;
 
     public Panda() {
-        this.pos = new Position(0,1);
+        this.pos = new Position(0,0);
     }
 
     public Position getPos() {

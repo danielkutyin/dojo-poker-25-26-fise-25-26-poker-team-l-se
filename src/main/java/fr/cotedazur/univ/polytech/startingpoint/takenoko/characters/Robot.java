@@ -38,7 +38,7 @@ public class Robot {
      **/
 
 
-    public void placeTileAdEtang() {
+    public void playTileTurn() {
 
         List<Position> playable = board.getPlayablePositions();
 
@@ -94,6 +94,7 @@ public class Robot {
   }
 
     public Position playPandaMove(){
+        int range =  new Random().nextInt(6)+1;//pour ne pas choisir 0
         Panda po = this.board.getPanda();
         List<Direction> directionsAvailable = new ArrayList<>();
         for(int i =0;i<6;i++){
@@ -111,5 +112,90 @@ public class Robot {
             throw new ArgumentalreadyExistOrnotAdj("Tile Does not exists " + placed);
         }
     }
+
+    public void playPandaTurn(){
+        System.out.println("Robot " + name + " chooses to move panda.");
+        while (true){
+            try{
+                Position place =playPandaMove();
+                System.out.println("panda moves to " + place.toString());
+                break;
+            }
+            catch(ArgumentalreadyExistOrnotAdj e){
+                System.out.println(e.getMessage());
+            }
+        }
+
+    }
+
+    public void playTurn(){
+        int choice = random.nextInt(2);
+        if(choice==0){
+            playTileTurn();
+        } else if (choice == 1) {
+            playPandaTurn();
+        } else {
+            playGardenerTurn();
+        }
+
+    }
+
+    public Position playGardenerMove() {
+        Gardener g = this.board.getGardener();
+        Position start = g.getPos();
+
+        /** Chercher les directions où un mouvement est possible **/
+
+        List<Direction> directionsAvailable = new ArrayList<>();
+        for (Direction dir : Direction.values()) {
+            if (Direction.rangeMovement(start, dir) > 0) {
+                directionsAvailable.add(dir);
+            }
+        }
+
+
+        if (directionsAvailable.isEmpty()) {
+            throw new ArgumentalreadyExistOrnotAdj("No valid direction for Gardener from " + start);
+        }
+
+        /**  Choisir une direction valide **/
+
+        Direction moved = directionsAvailable.get(new Random().nextInt(directionsAvailable.size()));
+
+        /**  Choisir une distance valide **/
+
+        int maxRange = Direction.rangeMovement(start, moved);
+        int dist = new Random().nextInt(maxRange) + 1;
+
+        /**  Calculer la position finale **/
+
+        Position placed = Direction.move(start, moved, dist);
+
+        /** Vérifier la tuile existe **/
+
+        if (board.getHashmap().containsKey(placed)) {
+            g.setPos(placed);
+            System.out.println("Gardener moves from " + start  + " dir=" + moved + " dist=" + dist + " to " + placed);
+            return placed;
+        } else {
+            throw new ArgumentalreadyExistOrnotAdj("Tile does not exist " + placed);
+        }
+
+
+    }
+
+    public void playGardenerTurn() {
+        System.out.println("Robot " + name + " choisit de déplacer le jardinier.");
+        try {
+            Position p = playGardenerMove();
+            System.out.println("Jardinier déplacé en " + p);
+            board.plantBambooOnGardenerTile();
+        } catch (ArgumentalreadyExistOrnotAdj e) {
+            System.out.println("Déplacement jardinier impossible : " + e.getMessage());
+        }
+    }
+
+
+
 }
 

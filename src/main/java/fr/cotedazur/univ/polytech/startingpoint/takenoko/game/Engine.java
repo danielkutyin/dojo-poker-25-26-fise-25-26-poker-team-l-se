@@ -21,27 +21,6 @@ public class Engine {
         return robots;
     }
 
-    public void playOneTurn(int index){
-        Robot robot = robots[index];
-        System.out.println("---Tour de "+robot.getName()+"---");
-        robot.placeTileAdEtang();
-        board.displayBoard();
-    }
-
-    public void playPandaTurn(int index){
-        Robot robot = robots[index];
-        while (true){
-            try{
-            Position place =robot.playPandaMove();
-            System.out.println("panda moves to " + place.toString());
-                break;
-            }
-            catch(ArgumentalreadyExistOrnotAdj e){
-                System.out.println(e.getMessage());
-            }
-        }
-
-    }
 
     public Robot getWinner(){
         Robot best = robots[0];
@@ -60,8 +39,9 @@ public class Engine {
         int turnNumber=1;
 
         while(board.getNumTiles()<14){
+            Robot robot = robots[turn];
             System.out.println("--- Tour "+turnNumber+" ---");
-            playOneTurn(turn);
+            robot.playTurn();
             turn=(turn+1)%robots.length;
             turnNumber++;
         }
@@ -80,7 +60,7 @@ public class Engine {
             Robot winner = getWinner();
             System.out.println("--- Gagnant : " + winner.getName() + " avec " + winner.getScore() + " points");
         }
-        playPandaTurn(turn);
+
 
 
     }
