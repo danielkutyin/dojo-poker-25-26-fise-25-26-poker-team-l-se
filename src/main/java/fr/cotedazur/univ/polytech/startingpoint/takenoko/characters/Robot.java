@@ -227,7 +227,7 @@ public class Robot {
                 Position p = playGardenerMove();
                 System.out.println("Jardinier déplacé en " + p);
                 board.plantBambooOnGardenerTile();
-                if (!(board.getTileAt(p).TileWithoutBambousOrPond())) {
+                if (!(board.getTileAt(p).getColor().equals(TileColor.POND))) {
                     System.out.println("Un bambou pousse sur la tuile " + board.getGardener().getPos()
                             + " (total = " + board.getTileAt(p).getNbBambous() + ")");
                 }
