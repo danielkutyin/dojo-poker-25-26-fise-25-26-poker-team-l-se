@@ -40,6 +40,15 @@ public class EngineTest {
         //pour le moment le 1er robot reste comme gagnat en cas d egalite
         assertEquals(r1.getName(),engine.getWinner().getName());
     }
+    @Test
+    public void verifyPalcedTuilFirst(){
+        Board board = new Board();
+        Robot r1 = new Robot(board);
+        Robot r2 = new Robot(board);
+        Robot[] robots = {r1,r2};
+        Engine engine = new Engine(board,robots);
+        assertEquals(1,board.getNumTiles());
+    }
 
 
 }

@@ -41,12 +41,16 @@ public class Robot {
     public void playTileTurn() {
 
         List<Position> playable = board.getPlayablePositions();
-
+        if (playable.isEmpty()) {
+            System.out.println(name + " n'a aucune position jouable.");
+            return;
+        }
         Position chosen = playable.get(random.nextInt(playable.size()));
         Tile tile = new Tile(chosen, TileColor.GREEN);
         board.addTile(tile);
         addScore(1);
         System.out.println(name + "placer tuile à " + chosen + " score =" + score);
+
 
 /*        Position pondPos = board.getPond().getPosition();
         List<Position> voisins = board.setNeighbours(pondPos);
@@ -93,7 +97,7 @@ public class Robot {
 //        System.out.println(name + " pose une tuile  en "+ chosen + " | score = "+score);
   }
 
-    public Position playPandaMove(){
+  /* public Position playPandaMove(){
         int range =  new Random().nextInt(6)+1;//pour ne pas choisir 0
         Panda po = this.board.getPanda();
         List<Direction> directionsAvailable = new ArrayList<>();
@@ -104,14 +108,41 @@ public class Robot {
         Direction moved = directionsAvailable.get(i);
         int randMove = new Random().nextInt(Direction.rangeMovement(po.getPos(),directionsAvailable.get(i)));
         Position placed = moved.move(po.getPos(),moved,randMove);
-        if (board.getHashmap().containsKey(placed)){
+        if (board.isExistInTiles(placed)) {
             po.setPos(placed);
             return placed;
         }
         else{
             throw new ArgumentalreadyExistOrnotAdj("Tile Does not exists " + placed);
         }
+    }*/
+    public Position playPandaMove() {
+        Panda po = this.board.getPanda();
+        Position start = po.getPos();
+
+        List<Direction> directionsAvailable = new ArrayList<>();
+        for (Direction dir : Direction.values()) {
+            if (Direction.rangeMovement(start, dir) > 0) directionsAvailable.add(dir);
+        }
+
+        if (directionsAvailable.isEmpty()) {
+            throw new ArgumentalreadyExistOrnotAdj("No valid direction for Panda from " + start);
+        }
+
+        Direction moved = directionsAvailable.get(random.nextInt(directionsAvailable.size()));
+        int maxRange = Direction.rangeMovement(start, moved);
+        int dist = random.nextInt(maxRange) + 1; // distance minimale = 1
+
+        Position placed = Direction.move(start, moved, dist);
+
+        if (board.isExistInTiles(placed)) {
+            po.setPos(placed);
+            return placed;
+        } else {
+            throw new ArgumentalreadyExistOrnotAdj("Tile Does not exist " + placed);
+        }
     }
+
 
     public void playPandaTurn(){
         System.out.println("Robot " + name + " chooses to move panda.");
@@ -119,6 +150,11 @@ public class Robot {
             try{
                 Position place =playPandaMove();
                 System.out.println("panda moves to " + place.toString());
+                if (!(board.getTileAt(place).TileWithoutBambousOrPond())){
+                    System.out.println("panda eats Bambou in Tile " + place );
+                    board.eatBambouOnPandaTile();
+                    System.out.println("there is now in tile" + place + " total = " + board.getTileAt(place).getNbBambous());
+                }
                 break;
             }
             catch(ArgumentalreadyExistOrnotAdj e){
@@ -129,8 +165,8 @@ public class Robot {
     }
 
     public void playTurn(){
-        int choice = random.nextInt(2);
-        if(choice==0){
+        int choice = random.nextInt(3);
+        if((choice==0)||(board.getNumTiles()<3)){ /*ne bouger pas le jardinier ou Panda  avant 3 tuiles*/
             playTileTurn();
         } else if (choice == 1) {
             playPandaTurn();
@@ -173,7 +209,7 @@ public class Robot {
 
         /** Vérifier la tuile existe **/
 
-        if (board.getHashmap().containsKey(placed)) {
+        if (board.isExistInTiles(placed)) {
             g.setPos(placed);
             System.out.println("Gardener moves from " + start  + " dir=" + moved + " dist=" + dist + " to " + placed);
             return placed;
@@ -186,12 +222,20 @@ public class Robot {
 
     public void playGardenerTurn() {
         System.out.println("Robot " + name + " choisit de déplacer le jardinier.");
-        try {
-            Position p = playGardenerMove();
-            System.out.println("Jardinier déplacé en " + p);
-            board.plantBambooOnGardenerTile();
-        } catch (ArgumentalreadyExistOrnotAdj e) {
-            System.out.println("Déplacement jardinier impossible : " + e.getMessage());
+        while (true) {
+            try {
+                Position p = playGardenerMove();
+                System.out.println("Jardinier déplacé en " + p);
+                board.plantBambooOnGardenerTile();
+                if (!(board.getTileAt(p).TileWithoutBambousOrPond())) {
+                    System.out.println("Un bambou pousse sur la tuile " + board.getGardener().getPos()
+                            + " (total = " + board.getTileAt(p).getNbBambous() + ")");
+                }
+                break;
+            }
+            catch (ArgumentalreadyExistOrnotAdj e) {
+                System.out.println("Déplacement jardinier impossible : " + e.getMessage());
+            }
         }
     }
 

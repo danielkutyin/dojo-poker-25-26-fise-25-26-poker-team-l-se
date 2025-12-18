@@ -26,6 +26,9 @@ public class Tile {
     public TileColor getColor() {
         return color;
     }
+    public List<Bambou> getBambous() {
+        return bambous;
+    }
 
     public void addBambou() {
 
@@ -37,9 +40,24 @@ public class Tile {
         }
     }
 
+    public void removeBambou() {
+        if ((color != TileColor.POND)&& !(bambous.isEmpty())) {
+            bambous.removeLast();
+        }
+    }
+
     public int getNbBambous() {
         return bambous.size();
     }
+
+
+    public boolean TileWithoutBambousOrPond(){
+        if (color != TileColor.POND) {
+            return getNbBambous()==0 ;
+        }
+        return true;
+    }
+
 
 
 

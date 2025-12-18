@@ -15,4 +15,6 @@ public class Panda {
     public void setPos(Position pos) {
         this.pos = pos;
     }
+
+
 }

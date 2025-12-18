@@ -24,6 +24,7 @@ public class Board {
         this.gardener = new Gardener();
     }
 
+
     //retourne la tuile etang
     public Tile getPond() {
         return pond;
@@ -116,9 +117,19 @@ public class Board {
         Tile tile = tiles.get(gardener.getPos());
         if (tile != null) {
             tile.addBambou();
-            System.out.println("Un bambou pousse sur la tuile " + gardener.getPos()
-                    + " (total = " + tile.getNbBambous() + ")");
         }
+    }
+
+    /** le panda mange le bambou si possible **/
+
+    public void eatBambouOnPandaTile() {
+        Tile tile = tiles.get(panda.getPos());
+        if (tile != null) {
+            tile.removeBambou();
+        }
+    }
+    public boolean isExistInTiles(Position pos){
+        return tiles.containsKey(pos);
     }
 
 

@@ -48,6 +48,9 @@ public class Engine {
 
         System.out.println("--- Fin de la partie ---");
 
+        System.out.println("plateau ");
+        board.displayBoard();
+
         for(Robot robot:robots) {
             System.out.println("--- " + robot.getName() + " : " + robot.getScore() + " points");
         }
