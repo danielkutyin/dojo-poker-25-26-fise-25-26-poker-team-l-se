@@ -20,6 +20,7 @@ public class Tile {
 
 
 
+
     public Position getPosition() {
         return pos;
     }
@@ -53,6 +54,13 @@ public class Tile {
 
     public int getNbBambous() {
         return bambous.size();
+    }
+
+    public void setNbBambous(int nbBambous) {
+        this.bambous = new ArrayList<>();
+        for (int i = 0; i < nbBambous; i++) {
+            this.bambous.add(new Bambou(this.color));
+        }
     }
 
 
