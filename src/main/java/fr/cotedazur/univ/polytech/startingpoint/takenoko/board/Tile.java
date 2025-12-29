@@ -40,10 +40,15 @@ public class Tile {
         }
     }
 
-    public void removeBambou() {
-        if ((color != TileColor.POND)&& !(bambous.isEmpty())) {
-            bambous.removeLast();
+    public boolean removeBambou(){
+        if(color == TileColor.POND) {
+            return false;
         }
+        if (bambous.isEmpty()){
+            return false;
+        }
+        bambous.removeLast();
+        return true;
     }
 
     public int getNbBambous() {

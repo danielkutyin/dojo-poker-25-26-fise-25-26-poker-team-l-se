@@ -122,12 +122,15 @@ public class Board {
 
     /** le panda mange le bambou si possible **/
 
-    public void eatBambouOnPandaTile() {
+    public boolean tryEatBambouOnPandaTile(){
         Tile tile = tiles.get(panda.getPos());
-        if (tile != null) {
-            tile.removeBambou();
-        }
+        return tile != null && tile.removeBambou();
     }
+
+    public void eatBambouOnPandaTile() {
+        tryEatBambouOnPandaTile();
+    }
+
     public boolean isExistInTiles(Position pos){
         return tiles.containsKey(pos);
     }
