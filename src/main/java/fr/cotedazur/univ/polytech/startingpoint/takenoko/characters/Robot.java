@@ -2,10 +2,14 @@ package fr.cotedazur.univ.polytech.startingpoint.takenoko.characters;
 
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.exceptions.ArgumentalreadyExistOrnotAdj;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.*;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives.ObjectivesPanda;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives.PandaObjective;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.EnumMap;
+import java.util.Map;
 
 public class Robot {
 
@@ -14,14 +18,34 @@ public class Robot {
     private final Random random = new Random();
     private final String name;
     private int score = 0;
+    private final EnumMap<TileColor, Integer> eatenBamboos = new EnumMap<>(TileColor.class);
+    private final List<PandaObjective> pandaObjectives = new ArrayList<>();
 
     public Robot(Board board) {
         this.board = board;
         this.name = "Robot" + (nextId++);
+        for (TileColor c : TileColor.values()) {
+            eatenBamboos.put(c, 0);
+        }
+        // pour tester direct : on pioche 1 objectif Panda au départ
+        PandaObjective first = ObjectivesPanda.drawRandom(random);
+        pandaObjectives.add(first);
+        System.out.println(name + " pioche objectif Panda: " + first);
     }
 
+    private void addEaten(TileColor c) {
+        if (c == null || c == TileColor.POND) return;
+        eatenBamboos.put(c, eatenBamboos.getOrDefault(c, 0) + 1);
+    }
 
-    public String getName() {
+    public int getEaten(TileColor c) {
+        return eatenBamboos.getOrDefault(c, 0);
+    }
+    public Map<TileColor, Integer> getEatenBamboos() {
+        return new EnumMap<>(eatenBamboos);
+    }
+
+        public String getName() {
         return name;
     }
 
