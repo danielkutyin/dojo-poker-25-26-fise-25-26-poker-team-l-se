@@ -150,10 +150,12 @@ public class Robot {
             try{
                 Position place =playPandaMove();
                 System.out.println("panda moves to " + place.toString());
-                if (!(board.getTileAt(place).TileWithoutBambousOrPond())){
-                    System.out.println("panda eats Bambou in Tile " + place );
-                    board.eatBambouOnPandaTile();
-                    System.out.println("there is now in tile" + place + " total = " + board.getTileAt(place).getNbBambous());
+                boolean ate = board.tryEatBambouOnPandaTile();
+                if (ate) {
+                    addScore(1);
+                    System.out.println("Robot " + name + " : Panda a mangé 1 bambou. Score = " + score);
+                } else {
+                    System.out.println("Robot " + name + " : Rien à manger. Score = " + score);
                 }
                 break;
             }
