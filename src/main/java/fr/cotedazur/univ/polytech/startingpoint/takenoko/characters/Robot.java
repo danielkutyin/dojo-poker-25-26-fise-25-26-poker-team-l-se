@@ -166,6 +166,41 @@ public class Robot {
             throw new ArgumentalreadyExistOrnotAdj("Tile Does not exist " + placed);
         }
     }
+    private void checkPandaObjectives() {
+        if (pandaObjectives.isEmpty()) return;
+
+        // on parcourt une copie pour pouvoir remove proprement //
+        List<PandaObjective> copy = new ArrayList<>(pandaObjectives);
+
+        for (PandaObjective obj : copy) {
+            if (obj.isAchieved(eatenBamboos)) {
+
+                // Consommer les bambous requis //
+                for (Map.Entry<TileColor, Integer> e : obj.getRequired().entrySet()) {
+                    TileColor c = e.getKey();
+                    if (c == TileColor.POND) continue;
+                    int need = e.getValue();
+                    if (need <= 0) continue;
+                    eatenBamboos.put(c, eatenBamboos.getOrDefault(c, 0) - need);
+                }
+
+                addScore(obj.getPoints());
+                pandaObjectives.remove(obj);
+
+                System.out.println("Robot " + name + " : ✅ Objectif Panda validé " + obj +
+                        " (+ " + obj.getPoints() + " pts). Reserve=" + eatenBamboos +
+                        " Score=" + score);
+
+                // option : repiocher un objectif pour continuer la partie //
+                PandaObjective next = ObjectivesPanda.drawRandom(random);
+                pandaObjectives.add(next);
+                System.out.println("Robot " + name + " pioche nouvel objectif Panda: " + next);
+            } else {
+                System.out.println("Robot " + name + " : Objectif Panda non atteint. Objectif=" + obj +
+                        " Reserve=" + eatenBamboos);
+            }
+        }
+    }
 
 
     public void playPandaTurn(){
