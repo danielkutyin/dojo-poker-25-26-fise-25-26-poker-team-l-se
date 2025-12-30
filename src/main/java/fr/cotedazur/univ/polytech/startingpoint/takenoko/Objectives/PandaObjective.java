@@ -1,4 +1,4 @@
-package fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives;
+package fr.cotedazur.univ.polytech.startingpoint.takenoko.Objectives;
 
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.TileColor;
 
