@@ -176,8 +176,14 @@ public class Robot {
                 System.out.println("panda moves to " + place.toString());
                 boolean ate = board.tryEatBambouOnPandaTile();
                 if (ate) {
+                    TileColor c = board.getTileAt(board.getPanda().getPos()).getColor();
+                    addEaten(c);
+
                     addScore(1);
-                    System.out.println("Robot " + name + " : Panda a mangé 1 bambou. Score = " + score);
+                    System.out.println("Robot " + name + " : Panda a mangé 1 bambou " + c +
+                            " (reserve=" + eatenBamboos + "). Score = " + score);
+
+                    checkPandaObjectives();
                 } else {
                     System.out.println("Robot " + name + " : Rien à manger. Score = " + score);
                 }
