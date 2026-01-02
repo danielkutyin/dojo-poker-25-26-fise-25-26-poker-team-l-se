@@ -23,6 +23,9 @@ public class Board {
         this.panda =new Panda();
         this.gardener = new Gardener();
     }
+    public List<Tile> getTiles() {
+        return new ArrayList<>(tiles.values());
+    }
 
 
     //retourne la tuile etang
