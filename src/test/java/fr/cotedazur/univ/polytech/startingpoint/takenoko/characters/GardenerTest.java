@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GardenerTest {
 
-    @BeforeEach
+    /*@BeforeEach
     void setup() {
         Board.resetBoard();
-    }
+    }*/
 
     @Test
     public void gardenerStartsOnPond() {
