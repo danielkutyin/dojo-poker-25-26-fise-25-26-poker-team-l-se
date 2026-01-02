@@ -4,7 +4,7 @@ import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Board;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Tile;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.TileColor;
 
-public class GardnerObjectives {
+public  class GardnerObjectives {
     private TileColor color;
     private int requiredBambous;
     private int requiredTilesPlanted;
@@ -43,5 +43,9 @@ public class GardnerObjectives {
     }
     public boolean isIrrigated(Board board) {
         return false; /**pour plus tard**/
+    }
+
+    public boolean hasImprovement() {
+        return false;
     }
 }
