@@ -24,12 +24,12 @@ public enum Direction {
         }
         return pos;
     }
-    public static int rangeMovement(Position pos,Direction direction){
+    /*public static int rangeMovement(Position pos,Direction direction){
         int compteur=0;
         while(Board.getHashmap().containsKey(pos)){
             pos=move(pos,direction,1);
             compteur++;
         }
         return compteur-1;
-    }
+    }*/
 }

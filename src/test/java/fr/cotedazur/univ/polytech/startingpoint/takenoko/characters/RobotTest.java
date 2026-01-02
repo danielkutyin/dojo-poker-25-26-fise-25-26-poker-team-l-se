@@ -9,10 +9,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RobotTest {
 
-    @BeforeEach
+   /* @BeforeEach
     void setup() {
         Board.resetBoard();
-    }
+    }*/
 
     @Test
     public void testPlayTileTurnAddScore(){
