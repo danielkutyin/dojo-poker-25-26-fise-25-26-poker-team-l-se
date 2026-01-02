@@ -5,7 +5,7 @@ import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Tile;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.TileColor;
 
 public class GardnerObjectives {
-    TileColor color;
+    private TileColor color;
     private int requiredBambous;
     private int requiredTilesPlanted;
 
@@ -23,6 +23,9 @@ public class GardnerObjectives {
         this.requiredBambous = requiredBambous;
     }
     public GardnerObjectives(int requiredBambous, int requiredTilesPlanted , TileColor color) {
+        if (color == null) throw new IllegalArgumentException("color cannot be null");
+        if (requiredBambous < 0) throw new IllegalArgumentException("requiredBambous must be >= 0");
+        if (requiredTilesPlanted <= 0) throw new IllegalArgumentException("requiredTilesPlanted must be > 0");
         this.color = color;
         this.requiredBambous = requiredBambous;
         this.requiredTilesPlanted = requiredTilesPlanted;
@@ -38,7 +41,7 @@ public class GardnerObjectives {
         }
         return checkedTiles >= requiredTilesPlanted;
     }
-    public boolean isIrreguitaed(Board board) {
+    public boolean isIrrigated(Board board) {
         return false; /**pour plus tard**/
     }
 }
