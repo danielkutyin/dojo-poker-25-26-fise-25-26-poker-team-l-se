@@ -8,16 +8,16 @@ import java.util.*;
 
 public class Board {
 
-    private static final Map<Position, Tile> tiles = new HashMap<>();
+    private final Map<Position, Tile> tiles = new HashMap<>();
     private final Tile pond;
     private Panda panda;
     private List<Position> neighbours = new ArrayList<>();
     private final Gardener gardener;
 
     public Board() {
-        if (tiles.isEmpty()) {
+        /*if (tiles.isEmpty()) {
             resetBoard();
-        }
+        }*/
         this.pond=new Tile(new Position(0,0), TileColor.POND);
         tiles.put(pond.getPosition(),pond);
         this.panda =new Panda();
@@ -42,7 +42,7 @@ public class Board {
     public int getNumTiles() {
         return tiles.size();
     }
-    public static Map<Position, Tile> getHashmap(){
+    public Map<Position, Tile> getHashmap(){
         return tiles;
     }
     public List<Position> setNeighbours(Position pos){
@@ -148,10 +148,20 @@ public class Board {
         System.out.println("-----------------------------\n");
     }
 
-    public static void resetBoard() {
+    public int rangeMovement(Position pos,Direction direction){
+        int compteur=0;
+        Position position = pos;
+        while(tiles.containsKey(position)){
+            position=direction.move(position,direction,1);
+            compteur++;
+        }
+        return compteur-1;
+    }
+
+    /*public void resetBoard() {
         tiles.clear();
         Tile pond = new Tile(new Position(0, 0), TileColor.POND);
         tiles.put(pond.getPosition(), pond);
-    }
+    }*/
 
 }

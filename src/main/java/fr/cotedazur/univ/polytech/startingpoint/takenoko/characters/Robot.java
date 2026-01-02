@@ -122,7 +122,7 @@ public class Robot {
 
         List<Direction> directionsAvailable = new ArrayList<>();
         for (Direction dir : Direction.values()) {
-            if (Direction.rangeMovement(start, dir) > 0) directionsAvailable.add(dir);
+            if (board.rangeMovement(start, dir) > 0) directionsAvailable.add(dir);
         }
 
         if (directionsAvailable.isEmpty()) {
@@ -130,7 +130,7 @@ public class Robot {
         }
 
         Direction moved = directionsAvailable.get(random.nextInt(directionsAvailable.size()));
-        int maxRange = Direction.rangeMovement(start, moved);
+        int maxRange = board.rangeMovement(start, moved);
         int dist = random.nextInt(maxRange) + 1; // distance minimale = 1
 
         Position placed = Direction.move(start, moved, dist);
@@ -186,7 +186,7 @@ public class Robot {
 
         List<Direction> directionsAvailable = new ArrayList<>();
         for (Direction dir : Direction.values()) {
-            if (Direction.rangeMovement(start, dir) > 0) {
+            if (board.rangeMovement(start, dir) > 0) {
                 directionsAvailable.add(dir);
             }
         }
@@ -202,7 +202,7 @@ public class Robot {
 
         /**  Choisir une distance valide **/
 
-        int maxRange = Direction.rangeMovement(start, moved);
+        int maxRange = board.rangeMovement(start, moved);
         int dist = new Random().nextInt(maxRange) + 1;
 
         /**  Calculer la position finale **/
