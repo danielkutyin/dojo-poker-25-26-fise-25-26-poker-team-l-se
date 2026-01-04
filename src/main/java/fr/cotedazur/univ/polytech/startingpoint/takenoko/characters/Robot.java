@@ -122,7 +122,7 @@ public class Robot {
 
         List<Direction> directionsAvailable = new ArrayList<>();
         for (Direction dir : Direction.values()) {
-            if (board.rangeMovement(start, dir) > 0) directionsAvailable.add(dir);
+            if (Direction.rangeMovement(start, dir) > 0) directionsAvailable.add(dir);
         }
 
         if (directionsAvailable.isEmpty()) {
@@ -130,7 +130,7 @@ public class Robot {
         }
 
         Direction moved = directionsAvailable.get(random.nextInt(directionsAvailable.size()));
-        int maxRange = board.rangeMovement(start, moved);
+        int maxRange = Direction.rangeMovement(start, moved);
         int dist = random.nextInt(maxRange) + 1; // distance minimale = 1
 
         Position placed = Direction.move(start, moved, dist);
@@ -150,12 +150,10 @@ public class Robot {
             try{
                 Position place =playPandaMove();
                 System.out.println("panda moves to " + place.toString());
-                boolean ate = board.tryEatBambouOnPandaTile();
-                if (ate) {
-                    addScore(1);
-                    System.out.println("Robot " + name + " : Panda a mangé 1 bambou. Score = " + score);
-                } else {
-                    System.out.println("Robot " + name + " : Rien à manger. Score = " + score);
+                if (!(board.getTileAt(place).TileWithoutBambousOrPond())){
+                    System.out.println("panda eats Bambou in Tile " + place );
+                    board.eatBambouOnPandaTile();
+                    System.out.println("there is now in tile" + place + " total = " + board.getTileAt(place).getNbBambous());
                 }
                 break;
             }
@@ -186,7 +184,7 @@ public class Robot {
 
         List<Direction> directionsAvailable = new ArrayList<>();
         for (Direction dir : Direction.values()) {
-            if (board.rangeMovement(start, dir) > 0) {
+            if (Direction.rangeMovement(start, dir) > 0) {
                 directionsAvailable.add(dir);
             }
         }
@@ -202,7 +200,7 @@ public class Robot {
 
         /**  Choisir une distance valide **/
 
-        int maxRange = board.rangeMovement(start, moved);
+        int maxRange = Direction.rangeMovement(start, moved);
         int dist = new Random().nextInt(maxRange) + 1;
 
         /**  Calculer la position finale **/
@@ -229,7 +227,7 @@ public class Robot {
                 Position p = playGardenerMove();
                 System.out.println("Jardinier déplacé en " + p);
                 board.plantBambooOnGardenerTile();
-                if (!(board.getTileAt(p).TileWithoutBambousOrPond())) {
+                if (!(board.getTileAt(p).getColor().equals(TileColor.POND))) {
                     System.out.println("Un bambou pousse sur la tuile " + board.getGardener().getPos()
                             + " (total = " + board.getTileAt(p).getNbBambous() + ")");
                 }
