@@ -5,11 +5,7 @@ import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.*;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.Objectives.ObjectivesPanda;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.Objectives.PandaObjective;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.EnumMap;
-import java.util.Map;
+import java.util.*;
 
 public class Robot {
 
@@ -20,6 +16,8 @@ public class Robot {
     private int score = 0;
     private final EnumMap<TileColor, Integer> eatenBamboos = new EnumMap<>(TileColor.class);
     private final List<PandaObjective> pandaObjectives = new ArrayList<>();
+    private final ObjectivesPanda pandaDeck;
+
 
     public Robot(Board board) {
         this.board = board;
@@ -27,10 +25,16 @@ public class Robot {
         for (TileColor c : TileColor.values()) {
             eatenBamboos.put(c, 0);
         }
-        // pour tester direct : on pioche 1 objectif Panda au départ
-        PandaObjective first = ObjectivesPanda.drawRandom(random);
-        pandaObjectives.add(first);
-        System.out.println(name + " pioche objectif Panda: " + first);
+        this.pandaDeck = new ObjectivesPanda(random);
+        Optional<PandaObjective> first = pandaDeck.draw();
+        if (first.isPresent()) {
+            pandaObjectives.add(first.get());
+            System.out.println(name + " pioche objectif Panda: " + first.get()
+                    + " (restant=" + pandaDeck.remaining() + ")");
+        } else {
+            System.out.println(name + " : aucun objectif Panda disponible (deck vide).");
+        }
+
     }
 
     private void addEaten(TileColor c) {
@@ -45,7 +49,7 @@ public class Robot {
         return new EnumMap<>(eatenBamboos);
     }
 
-        public String getName() {
+    public String getName() {
         return name;
     }
 
@@ -181,7 +185,8 @@ public class Robot {
                     if (c == TileColor.POND) continue;
                     int need = e.getValue();
                     if (need <= 0) continue;
-                    eatenBamboos.put(c, eatenBamboos.getOrDefault(c, 0) - need);
+                    int newValue = eatenBamboos.getOrDefault(c, 0) - need;
+                    eatenBamboos.put(c, Math.max(0, newValue));
                 }
 
                 addScore(obj.getPoints());
@@ -191,10 +196,16 @@ public class Robot {
                         " (+ " + obj.getPoints() + " pts). Reserve=" + eatenBamboos +
                         " Score=" + score);
 
-                // option : repiocher un objectif pour continuer la partie //
-                PandaObjective next = ObjectivesPanda.drawRandom(random);
-                pandaObjectives.add(next);
-                System.out.println("Robot " + name + " pioche nouvel objectif Panda: " + next);
+                Optional<PandaObjective> next = pandaDeck.draw();
+                if (next.isPresent()) {
+                    pandaObjectives.add(next.get());
+                    System.out.println(name + " pioche nouvel objectif Panda: " + next.get()
+                            + " (restant=" + pandaDeck.remaining() + ")");
+                } else {
+                    System.out.println(name + " : plus d'objectifs Panda à piocher.");
+                }
+
+
             } else {
                 System.out.println("Robot " + name + " : Objectif Panda non atteint. Objectif=" + obj +
                         " Reserve=" + eatenBamboos);
