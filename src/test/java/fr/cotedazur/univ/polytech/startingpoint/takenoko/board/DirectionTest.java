@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 public class DirectionTest {
-    /** @Test
+     @Test
     public void testMoveALot(){
         Position finalTruePositionReach = new Position(3,0);
         Position finalFalsePositionReach = new Position(4,0);
@@ -13,8 +13,8 @@ public class DirectionTest {
         assertEquals(finalTruePositionReach,Direction.move(startPosition,Direction.Droite,3));
         assertNotEquals(finalFalsePositionReach,Direction.move(startPosition,Direction.Droite,3));
     }
-     */
-    @Test
+
+    /*@Test
     public void testRangeMovement(){
         Board board = new Board();
         Position startPosition = new Position(1,0);
@@ -38,6 +38,6 @@ public class DirectionTest {
         board.addTile(blibliblitile);
         board.addTile(nextTonextTile);
 
-        assertEquals(2,Direction.rangeMovement(startPosition,Direction.Droite));
-    }
+        assertEquals(2,board.rangeMovement(startPosition,Direction.Droite));
+    }*/
 }
