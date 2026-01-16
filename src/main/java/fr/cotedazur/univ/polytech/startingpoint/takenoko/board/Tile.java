@@ -1,6 +1,7 @@
 package fr.cotedazur.univ.polytech.startingpoint.takenoko.board;
 
 
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.characters.Panda;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.elements.Bambou;
 
 import java.util.ArrayList;
@@ -9,17 +10,28 @@ import java.util.List;
 public class Tile {
     private final Position pos;
     private final TileColor color;
+    private Improvements improvement;
     private List<Bambou> bambous = new ArrayList<>();
 
 
-    public Tile(Position pos, TileColor color) {
+    public Tile(Position pos , TileColor color ) {
         this.pos = pos;
         this.color = color;
         this.bambous = new ArrayList<>();
     }
+    public Tile (Position pos , TileColor color, Improvements improvement ) {
+        this.pos = pos;
+        this.color = color;
+        this.improvement = improvement;
+        this.bambous = new ArrayList<>();
+    }
 
-
-
+    public Improvements getImprovement() {
+        return improvement;
+    }
+    public void setImprovement(Improvements improvement) {
+        this.improvement = improvement;
+    }
 
     public Position getPosition() {
         return pos;
@@ -70,9 +82,20 @@ public class Tile {
         }
         return true;
     }
-
-
-
+    public boolean isIrrigated() {
+        return false; /**pour plus tard**/
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tile tile = (Tile) o;
+        return pos.equals(tile.pos);
+    }
+    @Override
+    public int hashCode() {
+        return pos.hashCode();
+    }
 
     @Override
     public String toString() {
