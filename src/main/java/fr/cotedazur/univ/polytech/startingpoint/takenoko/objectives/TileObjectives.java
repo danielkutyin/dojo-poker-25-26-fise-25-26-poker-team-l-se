@@ -29,5 +29,7 @@ public class TileObjectives {
         if(compteur==tileLayer.size()) return true;
         return false;
     }
+    /// TODO méthode de rotation qui lorsque distance de 2 à la position déplacer de 3 vers la direction en diag
+    /// puis si de 1 deplacement en diag de 1
 
 }
