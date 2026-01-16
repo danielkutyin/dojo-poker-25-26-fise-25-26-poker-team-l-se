@@ -7,4 +7,6 @@ public class TileObjectives {
     private Tile tuile;
     private Board board;
 
+    /// Méthode boolean qui retourne si oui ou non le calque s'applique en
+    ///utilisant une rotation aussi pour courvrir tout loes sens
 }
