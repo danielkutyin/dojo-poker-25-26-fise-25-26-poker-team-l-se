@@ -25,7 +25,8 @@ public  class GardnerObjectives {
     public void setRequiredBambous(int requiredBambous) {
         this.requiredBambous = requiredBambous;
     }
-    public GardnerObjectives(int requiredBambous, int requiredTilesPlanted , TileColor color) {
+
+    public GardnerObjectives(int requiredBambous, int requiredTilesPlanted , TileColor color , int points, Improvements improvement) {
         if (color == null) throw new IllegalArgumentException("color cannot be null");
         if (requiredBambous < 0) throw new IllegalArgumentException("requiredBambous must be >= 0");
         if (requiredTilesPlanted <= 0) throw new IllegalArgumentException("requiredTilesPlanted must be > 0");
@@ -35,6 +36,8 @@ public  class GardnerObjectives {
         this.points = points;
         this.improvement = improvement;
     }
+
+
     /// *verifie chaque  tuiles de plateau si non return false*///
     public boolean isAchieved(Board board) {
         int checkedTiles = 0;

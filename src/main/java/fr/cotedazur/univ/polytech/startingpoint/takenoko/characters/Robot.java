@@ -2,8 +2,8 @@ package fr.cotedazur.univ.polytech.startingpoint.takenoko.characters;
 
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.exceptions.ArgumentalreadyExistOrnotAdj;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.*;
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.Objectives.ObjectivesPanda;
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.Objectives.PandaObjective;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives.ObjectivesPanda;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives.PandaObjective;
 
 import java.util.*;
 
