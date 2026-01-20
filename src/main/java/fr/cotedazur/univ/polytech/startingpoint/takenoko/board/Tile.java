@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tile {
-    private final Position pos;
+    private Position pos;
     private final TileColor color;
     private List<Bambou> bambous = new ArrayList<>();
 
@@ -29,6 +29,9 @@ public class Tile {
     }
     public List<Bambou> getBambous() {
         return bambous;
+    }
+    public void setPosition(Position position){
+        pos = position;
     }
 
     public void addBambou() {
