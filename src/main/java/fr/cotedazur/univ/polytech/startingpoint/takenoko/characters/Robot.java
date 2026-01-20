@@ -2,8 +2,11 @@ package fr.cotedazur.univ.polytech.startingpoint.takenoko.characters;
 
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.exceptions.ArgumentalreadyExistOrnotAdj;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.*;
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.Objectives.ObjectivesPanda;
+
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.Objectives.PandaObjective;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives.GardnerObjectives;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives.ObjectivesCards;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives.ObjectivesPanda;
 
 import java.util.*;
 
@@ -17,6 +20,7 @@ public class Robot {
     private final EnumMap<TileColor, Integer> eatenBamboos = new EnumMap<>(TileColor.class);
     private final List<PandaObjective> pandaObjectives = new ArrayList<>();
     private final ObjectivesPanda pandaDeck;
+    private List<GardnerObjectives> cardsgardner;
 
 
     public Robot(Board board) {
@@ -34,6 +38,7 @@ public class Robot {
         } else {
             System.out.println(name + " : aucun objectif Panda disponible (deck vide).");
         }
+        this.cardsgardner = ObjectivesCards.createGardenerObjectives();
 
     }
 
@@ -306,6 +311,11 @@ public class Robot {
             catch (ArgumentalreadyExistOrnotAdj e) {
                 System.out.println("Déplacement jardinier impossible : " + e.getMessage());
             }
+        }
+    }
+    public void removeachieved (GardnerObjectives card , Board board){
+        if  (card.isAchieved(board)){
+            cardsgardner.remove(card);
         }
     }
 
