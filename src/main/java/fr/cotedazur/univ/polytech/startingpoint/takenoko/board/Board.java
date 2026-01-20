@@ -6,6 +6,8 @@ import fr.cotedazur.univ.polytech.startingpoint.takenoko.exceptions.Argumentalre
 
 import java.util.*;
 
+import static java.lang.Math.abs;
+
 public class Board {
 
     private final Map<Position, Tile> tiles = new HashMap<>();
@@ -63,6 +65,16 @@ public class Board {
             }
         }
         return false;
+    }
+    public boolean verifTouchBtw2Pos(Position position1, Position position2){
+        if(position1.getWidth()==position2.getWidth() &&( abs( abs(position1.getHeight()) - abs(position2.getHeight()) )==0 || abs( abs(position1.getHeight()) - abs(position2.getHeight()) )==1 )){
+            return true;
+        }
+        if(position1.getHeight()==position2.getHeight() &&( abs( abs(position1.getWidth()) - abs(position2.getWidth()) )==0 || abs( abs(position1.getWidth()) - abs(position2.getWidth()) )==1 )){
+            return true;
+        }
+        return false;
+
     }
     public boolean verifRule2Touch(Position pos){
         int count = 0;
