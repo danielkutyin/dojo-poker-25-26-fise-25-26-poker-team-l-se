@@ -1,10 +1,13 @@
 package fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives;
 
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Board;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Direction;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Position;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Tile;
 
 import java.util.List;
+
+import static java.lang.Math.abs;
 
 public class TileObjectives {
     private Tile tuile;
@@ -29,7 +32,14 @@ public class TileObjectives {
         if(compteur==tileLayer.size()) return true;
         return false;
     }
-    /// TODO méthode de rotation qui lorsque distance de 2 à la position déplacer de 3 vers la direction en diag
-    /// puis si de 1 deplacement en diag de 1
-
+    public List<Tile> rotation(List<Tile> tileLayer,Position pos,Direction direction){
+        for(int i =0;i<tileLayer.size();i++){
+            if(board.verifTouchBtw2Pos(tileLayer.get(i).getPosition(),pos))//si on est collé ou non
+                tileLayer.get(i).getPosition() = Direction.move(tileLayer.get(i).getPosition(), direction, 1);//décalage de 1 car distance de 1
+            else {
+                tileLayer.get(i).getPosition() = Direction.move(tileLayer.get(i).getPosition(), direction, 3);//décalage de 3 car on est a distance de 2
+            }
+        }
+        return tileLayer;
+    }
 }
