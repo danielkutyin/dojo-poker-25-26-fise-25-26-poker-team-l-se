@@ -67,14 +67,21 @@ public class Board {
         return false;
     }
     public boolean verifTouchBtw2Pos(Position position1, Position position2){
-        if(position1.getWidth()==position2.getWidth() &&( abs( abs(position1.getHeight()) - abs(position2.getHeight()) )==0 || abs( abs(position1.getHeight()) - abs(position2.getHeight()) )==1 )){
-            return true;
-        }
-        if(position1.getHeight()==position2.getHeight() &&( abs( abs(position1.getWidth()) - abs(position2.getWidth()) )==0 || abs( abs(position1.getWidth()) - abs(position2.getWidth()) )==1 )){
-            return true;
+        List<Direction> listDirection = new ArrayList<>();
+        listDirection.add(Direction.HautDroite);
+        listDirection.add(Direction.Droite);
+        listDirection.add(Direction.BasDroite);
+        listDirection.add(Direction.BasGauche);
+        listDirection.add(Direction.Gauche);
+        listDirection.add(Direction.HautGauche);
+        for(int i = 0; i<6;i++){
+            Position positionTest = new Position(position1.getHeight(),position1.getWidth());
+            positionTest = Direction.move(positionTest,listDirection.get(i),1);
+            if(positionTest.equals(position2)){
+                return true;
+            }
         }
         return false;
-
     }
     public boolean verifRule2Touch(Position pos){
         int count = 0;

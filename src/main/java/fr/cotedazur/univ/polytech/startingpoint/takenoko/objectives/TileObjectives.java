@@ -1,10 +1,8 @@
 package fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives;
 
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Board;
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Direction;
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Position;
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Tile;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Math.abs;
@@ -22,6 +20,10 @@ public class TileObjectives {
 //            switch (//méthode qui verifie le calque dans tout le board)
 //        }
 //    }
+    public TileObjectives(Board board){
+        this.board = board;
+        this.layer = new TileLayer();
+    }
     public boolean layerMatch(List<Tile> tileLayer,List<Tile> getterTile){
         int compteur=0;
         for(Tile tile : getterTile){
@@ -34,11 +36,14 @@ public class TileObjectives {
     }
     public List<Tile> rotation(List<Tile> tileLayer,Position pos,Direction direction){
         for(int i =0;i<tileLayer.size();i++){
-            if(board.verifTouchBtw2Pos(tileLayer.get(i).getPosition(),pos))//si on est collé ou non
-            {
-                tileLayer.get(i).setPosition(Direction.move(tileLayer.get(i).getPosition(), direction, 1));;//décalage de 1 car distance de 1
-            } else {
-                tileLayer.get(i).setPosition(Direction.move(tileLayer.get(i).getPosition(), direction, 3));//décalage de 3 car on est a distance de 2
+            if(!(tileLayer.get(i).getPosition()==pos)) {
+
+                if (board.verifTouchBtw2Pos(tileLayer.get(i).getPosition(), pos))//si on est collé ou non
+                {
+                    tileLayer.get(i).setPosition(Direction.move(tileLayer.get(i).getPosition(), direction, 1));//décalage de 1 car distance de 1
+                } else {
+                    tileLayer.get(i).setPosition(Direction.move(tileLayer.get(i).getPosition(), direction, 3));//décalage de 3 car on est a distance de 2
+                }
             }
         }
         return tileLayer;
