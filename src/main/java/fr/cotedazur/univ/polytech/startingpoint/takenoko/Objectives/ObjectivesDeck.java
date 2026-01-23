@@ -1,13 +1,12 @@
 package fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives;
 
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Board;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Improvements;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.TileColor;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class ObjectivesCards {
+public class ObjectivesDeck {
+
 
     public static List<GardnerObjectives> createGardenerObjectives() {
 
@@ -42,6 +41,21 @@ public class ObjectivesCards {
         objectives.add(new GardnerObjectives(3, 2, TileColor.PINK, 6, Improvements.NONE));
 
         return objectives;
+    }
+    private final List<GardnerObjectives> deck;
+
+    public ObjectivesDeck(Random random) {
+        this.deck = new ArrayList<>(ObjectivesDeck.createGardenerObjectives());
+        Collections.shuffle(this.deck, random);
+    }
+
+    public Optional<GardnerObjectives> draw() {
+        if (deck.isEmpty()) return Optional.empty();
+        return Optional.of(deck.removeLast());
+    }
+
+    public int remaining() {
+        return deck.size();
     }
 
 }

@@ -2,6 +2,7 @@ package fr.cotedazur.univ.polytech.startingpoint.takenoko.characters;
 
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Board;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Position;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.game.Engine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,14 +28,17 @@ public class RobotTest {
     }
     @Test
     public void testPlayTilefirst(){
+
         Board board = new Board();
         Robot robot = new Robot(board);
+        Robot[] robots = {robot};
+        Engine e = new Engine(board,robots);
         Position initialPos=new Position(0,0);
         assertEquals(initialPos,board.getTileAt(initialPos).getPosition());
-        robot.playTurn();
-        assertEquals(2,board.getNumTiles());
-        robot.playTileTurn();
+        robot.playTurn(e.getPandaDeck(),e.getGardenerDeck());
         assertEquals(3,board.getNumTiles());
+        robot.playTileTurn();
+        assertEquals(4,board.getNumTiles());
     }
     @Test
     public void testPlayPandaTurnAddScore(){

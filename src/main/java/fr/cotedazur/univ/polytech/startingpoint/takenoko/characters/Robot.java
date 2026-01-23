@@ -1,11 +1,13 @@
 package fr.cotedazur.univ.polytech.startingpoint.takenoko.characters;
 
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.Actions.Actions;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.Actions.RandomStrategy;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.exceptions.ArgumentalreadyExistOrnotAdj;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.*;
 
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.Objectives.PandaObjective;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives.GardnerObjectives;
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives.ObjectivesCards;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives.ObjectivesDeck;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives.ObjectivesPanda;
 
 import java.util.*;
@@ -13,14 +15,16 @@ import java.util.*;
 public class Robot {
 
     private static int nextId = 1;
-    private Board board;
     private final Random random = new Random();
+    private Board board;
     private final String name;
     private int score = 0;
     private final EnumMap<TileColor, Integer> eatenBamboos = new EnumMap<>(TileColor.class);
-    private final List<PandaObjective> pandaObjectives = new ArrayList<>();
-    private final ObjectivesPanda pandaDeck;
-    private List<GardnerObjectives> cardsgardner;
+    private List<PandaObjective> pandaObjectives = new ArrayList<>();
+    private List<GardnerObjectives> cardsgardner = new ArrayList<>();
+
+    private static final int MAX_OBJECTIVES_IN_HAND = 5;
+
 
 
     public Robot(Board board) {
@@ -29,18 +33,40 @@ public class Robot {
         for (TileColor c : TileColor.values()) {
             eatenBamboos.put(c, 0);
         }
-        this.pandaDeck = new ObjectivesPanda(random);
-        Optional<PandaObjective> first = pandaDeck.draw();
-        if (first.isPresent()) {
-            pandaObjectives.add(first.get());
-            System.out.println(name + " pioche objectif Panda: " + first.get()
-                    + " (restant=" + pandaDeck.remaining() + ")");
-        } else {
-            System.out.println(name + " : aucun objectif Panda disponible (deck vide).");
-        }
-        this.cardsgardner = ObjectivesCards.createGardenerObjectives();
-
     }
+    public void drawPandaObjective(ObjectivesPanda pandaDeck) {
+        if (totalObjectivesInHand() >= MAX_OBJECTIVES_IN_HAND) {
+            System.out.println(name + " ne peut pas piocher plus d'objectifs panda (limite atteinte).");
+            return;
+        }
+        pandaDeck.draw().ifPresent(card -> {
+            pandaObjectives.add(card);
+            System.out.println(name + " pioche un objectif panda : " + card);
+        });
+    }
+
+    public void drawGardenerObjective(ObjectivesDeck gardenerDeck) {
+        if (totalObjectivesInHand() >= MAX_OBJECTIVES_IN_HAND) {
+            System.out.println(name + " ne peut pas piocher plus d'objectifs jardinier (limite atteinte).");
+            return;
+        }
+        gardenerDeck.draw().ifPresent(card -> {
+            cardsgardner.add(card);
+            System.out.println(name + " pioche un objectif jardinier : " + card);
+        });
+    }
+    public List<PandaObjective> getPandaObjectives() {
+        return Collections.unmodifiableList(pandaObjectives);
+    }
+
+    public boolean canDrawObjective() {
+        return totalObjectivesInHand() < MAX_OBJECTIVES_IN_HAND;
+    }
+
+    public int totalObjectivesInHand() {
+        return pandaObjectives.size() + cardsgardner.size();
+    }
+
 
     private void addEaten(TileColor c) {
         if (c == null || c == TileColor.POND) return;
@@ -175,49 +201,6 @@ public class Robot {
             throw new ArgumentalreadyExistOrnotAdj("Tile Does not exist " + placed);
         }
     }
-    private void checkPandaObjectives() {
-        if (pandaObjectives.isEmpty()) return;
-
-        // on parcourt une copie pour pouvoir remove proprement //
-        List<PandaObjective> copy = new ArrayList<>(pandaObjectives);
-
-        for (PandaObjective obj : copy) {
-            if (obj.isAchieved(eatenBamboos)) {
-
-                // Consommer les bambous requis //
-                for (Map.Entry<TileColor, Integer> e : obj.getRequired().entrySet()) {
-                    TileColor c = e.getKey();
-                    if (c == TileColor.POND) continue;
-                    int need = e.getValue();
-                    if (need <= 0) continue;
-                    int newValue = eatenBamboos.getOrDefault(c, 0) - need;
-                    eatenBamboos.put(c, Math.max(0, newValue));
-                }
-
-                addScore(obj.getPoints());
-                pandaObjectives.remove(obj);
-
-                System.out.println("Robot " + name + " : ✅ Objectif Panda validé " + obj +
-                        " (+ " + obj.getPoints() + " pts). Reserve=" + eatenBamboos +
-                        " Score=" + score);
-
-                Optional<PandaObjective> next = pandaDeck.draw();
-                if (next.isPresent()) {
-                    pandaObjectives.add(next.get());
-                    System.out.println(name + " pioche nouvel objectif Panda: " + next.get()
-                            + " (restant=" + pandaDeck.remaining() + ")");
-                } else {
-                    System.out.println(name + " : plus d'objectifs Panda à piocher.");
-                }
-
-
-            } else {
-                System.out.println("Robot " + name + " : Objectif Panda non atteint. Objectif=" + obj +
-                        " Reserve=" + eatenBamboos);
-            }
-        }
-    }
-
 
     public void playPandaTurn(){
         System.out.println("Robot " + name + " chooses to move panda.");
@@ -227,7 +210,9 @@ public class Robot {
                 System.out.println("panda moves to " + place.toString());
                 if (!(board.getTileAt(place).TileWithoutBambousOrPond())){
                     System.out.println("panda eats Bambou in Tile " + place );
-                    board.eatBambouOnPandaTile();
+                    TileColor c = board.getTileAt(place).getColor();
+                    boolean ate = board.tryEatBambouOnPandaTile();
+                    if (ate) addEaten(c);
                     System.out.println("there is now in tile" + place + " total = " + board.getTileAt(place).getNbBambous());
                 }
                 break;
@@ -239,17 +224,52 @@ public class Robot {
 
     }
 
-    public void playTurn(){
-        int choice = random.nextInt(3);
-        if((choice==0)||(board.getNumTiles()<3)){ /*ne bouger pas le jardinier ou Panda  avant 3 tuiles*/
-            playTileTurn();
-        } else if (choice == 1) {
-            playPandaTurn();
-        } else {
-            playGardenerTurn();
+    public void playTurn(ObjectivesPanda pandaDeck, ObjectivesDeck gardenerDeck) {
+        RandomStrategy strategy = new RandomStrategy();
+        Actions a1 = strategy.choose(new TurnView(board, this));
+        applyAction(a1, pandaDeck, gardenerDeck);
+
+        Actions a2 = strategy.choose(new TurnView(board, this));
+
+        applyAction(a2, pandaDeck, gardenerDeck);
+    }
+
+    public void applyAction(Actions action, ObjectivesPanda pandaDeck, ObjectivesDeck gardenerDeck) {
+        if (board.getNumTiles() < 3 && action != Actions.Tiles) action = Actions.Tiles;
+
+        switch (action) {
+            case Tiles -> playTileTurn();
+            case Panda -> playPandaTurn();
+            case Gardener -> playGardenerTurn();
+            case Objectives -> playObjectiveTurn(pandaDeck, gardenerDeck);
+        }
+    }
+    public void playObjectiveTurn(ObjectivesPanda pandaDeck, ObjectivesDeck gardenerDeck) {
+        if (totalObjectivesInHand() >= MAX_OBJECTIVES_IN_HAND) {
+            System.out.println(name + " ne peut pas piocher (main pleine).");
+            return;
         }
 
+        boolean canPanda = pandaDeck.remaining() > 0;
+        boolean canGardener = gardenerDeck.remaining() > 0;
+
+        if (!canPanda && !canGardener) {
+            System.out.println(name + " : plus d'objectifs à piocher.");
+            return;
+        }
+
+        // choix random entre les piles disponibles
+        if (canPanda && (!canGardener || random.nextBoolean())) {
+            drawPandaObjective(pandaDeck);
+        } else {
+            drawGardenerObjective(gardenerDeck);
+        }
     }
+
+
+
+
+
 
     public Position playGardenerMove() {
         Gardener g = this.board.getGardener();

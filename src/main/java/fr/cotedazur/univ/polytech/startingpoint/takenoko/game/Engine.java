@@ -4,15 +4,26 @@ import fr.cotedazur.univ.polytech.startingpoint.takenoko.exceptions.Argumentalre
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Board;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Position;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.characters.Robot;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives.ObjectivesDeck;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives.ObjectivesPanda;
+
+import java.util.Random;
 
 public class Engine {
-
     private final Board board;
     private final Robot[] robots;
+    private final ObjectivesPanda pandaDeck;
+    private final ObjectivesDeck gardenerDeck;
+
     public Engine(Board board, Robot[] robots) {
         this.board = board;
         this.robots = robots;
+        this.pandaDeck = new ObjectivesPanda(new Random());
+        this.gardenerDeck = new ObjectivesDeck(new Random());
     }
+    public ObjectivesPanda getPandaDeck() { return pandaDeck; }
+    public ObjectivesDeck getGardenerDeck() { return gardenerDeck; }
+
 
     public Board getBoard() {
         return board;
@@ -37,11 +48,15 @@ public class Engine {
         board.displayBoard();
         int turn=0;
         int turnNumber=1;
+        for (Robot r : robots) {
+            r.drawPandaObjective(pandaDeck);
+            r.drawGardenerObjective(gardenerDeck);
+        }
 
         while(board.getNumTiles()<14){
             Robot robot = robots[turn];
             System.out.println("--- Tour "+turnNumber+" ---");
-            robot.playTurn();
+            robot.playTurn(pandaDeck,gardenerDeck);
             turn=(turn+1)%robots.length;
             turnNumber++;
         }
@@ -54,6 +69,7 @@ public class Engine {
         for(Robot robot:robots) {
             System.out.println("--- " + robot.getName() + " : " + robot.getScore() + " points");
         }
+
         Robot r1 = robots[0];
         Robot r2 = robots[1];
         if (r1.getScore() == r2.getScore()){

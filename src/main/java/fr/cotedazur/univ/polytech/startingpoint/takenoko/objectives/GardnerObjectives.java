@@ -35,6 +35,27 @@ public  class GardnerObjectives {
         this.points = points;
         this.improvement = improvement;
     }
+    public int getPoints() {
+        return points;
+    }
+
+    public int getRequiredTilesPlanted() {
+        return requiredTilesPlanted;
+    }
+
+    public Improvements getImprovement() {
+        return improvement;
+    }
+    @Override
+    public String toString() {
+        return "GardenerObj{color=" + color +
+                ", bambous>=" + requiredBambous +
+                ", tiles>=" + requiredTilesPlanted +
+                ", improv=" + improvement +
+                ", pts=" + points + "}";
+    }
+
+
     /// *verifie chaque  tuiles de plateau si non return false*///
     public boolean isAchieved(Board board) {
         int validTiles = 0;

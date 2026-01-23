@@ -11,6 +11,6 @@ public class StrategyController implements PlayerController {
 
     @Override
     public Actions decide(TurnView view) {
-        return strategy.choose(view.robot(), view.board());
+        return strategy.choose(view);
     }
 }
