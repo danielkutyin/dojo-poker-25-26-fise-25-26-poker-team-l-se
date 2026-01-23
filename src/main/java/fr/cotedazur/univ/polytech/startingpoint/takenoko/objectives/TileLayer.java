@@ -10,25 +10,33 @@ import java.util.List;
 public class TileLayer {
     public TileLayer(){;}
 
-    public List<Position> DoubleLayer(Position pos){
-        List<Position> doubleLayer = new ArrayList<>();
-        doubleLayer.add(pos);
-        doubleLayer.add(Direction.move(pos,Direction.HautDroite,1));
+    private List<Position> positions;
+
+    public List<Tile> DoubleLayer(Tile tile){
+        List<Tile> doubleLayer = new ArrayList<>();
+        doubleLayer.add(tile);
+        doubleLayer.add(new Tile(Direction.move(tile.getPosition(),Direction.HautDroite,1),tile.getColor()));
         return doubleLayer;
     }
-    public List<Position> TriangleLayer(Position pos){
-        List<Position> triangleLayer = DoubleLayer(pos);
-        triangleLayer.add(Direction.move(pos,Direction.Droite,1));
+    public List<Tile> TriangleLayer(Tile tile){
+        List<Tile> triangleLayer = DoubleLayer(tile);
+        triangleLayer.add(new Tile(Direction.move(tile.getPosition(),Direction.Droite,1),tile.getColor()));
         return triangleLayer;
     }
-    public List<Position> SquareLayer(Position pos){
-        List<Position> squareLayer = TriangleLayer(pos);
-        squareLayer.add(Direction.move(pos,Direction.BasDroite,1));
+    public List<Tile> SquareLayer(Tile tile){
+        List<Tile> squareLayer = TriangleLayer(tile);
+        squareLayer.add(new Tile(Direction.move(tile.getPosition(),Direction.BasDroite,1),tile.getColor()));
         return squareLayer;
     }
-    public List<Position> StraightLayer(Position pos){
-        List<Position> straightLayer = DoubleLayer(pos);
-        straightLayer.add(Direction.move(pos,Direction.HautDroite,2));
+    public List<Tile> StraightLayer(Tile tile){
+        List<Tile> straightLayer = DoubleLayer(tile);
+        straightLayer.add(new Tile(Direction.move(tile.getPosition(),Direction.HautDroite,2),tile.getColor()));
         return straightLayer;
     }
+    public List<Tile> SnakeLayer(Tile tile){
+        List<Tile> snakeLayer = SquareLayer(tile);
+        snakeLayer.remove(new Tile(Direction.move(tile.getPosition(),Direction.Droite,1),tile.getColor()));
+        return snakeLayer;
+    }
+
 }

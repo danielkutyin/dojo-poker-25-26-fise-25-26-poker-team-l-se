@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TileObjectivesTest {
-    private TileObjectives tileObjectives;
+    private TileObjectives tileObjectives=new TileObjectives();
     @Test
     public void rotationTest(){
         List<Tile> tileLayerBeforeChange = new ArrayList<>();
@@ -34,4 +34,6 @@ public class TileObjectivesTest {
         tileLayerBeforeChange.add(tile4);
         assertEquals(tileObjectives.rotation(tileLayerBeforeChange,position1Duo, Direction.Droite),tileLayerAfterChange);
     }
+
+
 }

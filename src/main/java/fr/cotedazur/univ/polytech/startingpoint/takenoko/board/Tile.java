@@ -5,6 +5,7 @@ import fr.cotedazur.univ.polytech.startingpoint.takenoko.elements.Bambou;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Tile {
     private Position pos;
@@ -72,6 +73,18 @@ public class Tile {
             return getNbBambous()==0 ;
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(this==o) return true;
+        if(!(o instanceof Tile tile)) return false;
+        return Objects.equals(pos,tile.pos) && color==tile.color;
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(pos);
     }
 
 
