@@ -8,44 +8,33 @@ import java.util.List;
 import static java.lang.Math.abs;
 
 public class TileObjectives {
-    private Tile tuile;
-    private Board board;
-    private TileLayer layer;
+    private TileLayer layer= new TileLayer();
+    private RotationLayer rotation= new RotationLayer();
 
-    /// Méthode boolean qui retourne si oui ou non le calque s'applique en
-    ///utilisant une rotation aussi pour courvrir tout loes sens
 
-//    public boolean testLayer(){
-//        for (Tile tile : board.getTiles()){
-//            switch (//méthode qui verifie le calque dans tout le board)
-//        }
-//    }
-    public TileObjectives(Board board){
-        this.board = board;
-        this.layer = new TileLayer();
-    }
-    public boolean layerMatch(List<Tile> tileLayer,List<Tile> getterTile){
-        int compteur=0;
-        for(Tile tile : getterTile){
-            for(Tile tile2 : tileLayer){
-                if(tile.equals(tile2)) compteur++;
-            }
+    public boolean matches(Board board , List<Position> absPosition, TileColor requiredColor){
+        for (Position p: absPosition){
+            Tile t = board.getTileAt(p);
+            if(t==null) return false;
+            if(t.getColor()!=requiredColor) return false;
         }
-        if(compteur==tileLayer.size()) return true;
-        return false;
+        return true;
     }
-    public List<Tile> rotation(List<Tile> tileLayer,Position pos,Direction direction){
-        for(int i =0;i<tileLayer.size();i++){
-            if(!(tileLayer.get(i).getPosition()==pos)) {
 
-                if (board.verifTouchBtw2Pos(tileLayer.get(i).getPosition(), pos))//si on est collé ou non
-                {
-                    tileLayer.get(i).setPosition(Direction.move(tileLayer.get(i).getPosition(), direction, 1));//décalage de 1 car distance de 1
-                } else {
-                    tileLayer.get(i).setPosition(Direction.move(tileLayer.get(i).getPosition(), direction, 3));//décalage de 3 car on est a distance de 2
+    public boolean isCompleted(Board board, TileObjectiveCard card){
+        List<Position> base= layer.getTileLayer(card.getPatternType());
+        List<List<Position>> rotations= rotation.allRotations(base);
+
+        for(Tile anchorTile: board.getTiles()){
+            Position anchor=anchorTile.getPosition();
+
+            for(List<Position> rot : rotations){
+                List<Position> abs = rotation.anchorLayer(rot,anchor);
+                if(matches(board, abs, card.getColor())){
+                    return true;
                 }
             }
         }
-        return tileLayer;
+        return false;
     }
 }
