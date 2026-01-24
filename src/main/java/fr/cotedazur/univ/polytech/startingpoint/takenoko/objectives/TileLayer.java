@@ -7,64 +7,41 @@ import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Tile;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Collections.list;
+
 public class TileLayer {
-    public TileLayer(){;}
 
-    private List<Position> positions;
+    public List<Position> getTileLayer(TilePatternType layer){
+        List<Position> l = new ArrayList<>();
+        switch (layer){
+            case DOUBLE:
+                return list(
+                        new Position(0,0), new Position(1,-1));
+                        //HautDroite
+            case TRIANGLE:
+                return list(
+                        new Position(0,0),new Position(1,-1), new Position(1,0)
+                );
+            case SQUARE:
+                return list(
+                        new Position(0,0),new Position(1,-1),new Position(1,0),new Position(0,1)
+                );
+            case STRAIGHT:
+                return list(
+                        new Position(0,0),new Position(1,-1),new Position(2,-2)
+                );
+            case SNAKE:
+                return list(
+                        new Position(0,0),new Position(1,-1),new Position(0,1)
+                );
+            default:
+                return new ArrayList<>();
+            }
+        }
 
-    public List<Tile> doubleLayer(Tile tile){
-        List<Tile> doubleLayer = new ArrayList<>();
-        doubleLayer.add(tile);
-        doubleLayer.add(new Tile(Direction.move(tile.getPosition(),Direction.HautDroite,1),tile.getColor()));
-        return doubleLayer;
-    }
-    public List<Tile> triangleLayer(Tile tile){
-        List<Tile> triangleLayer = doubleLayer(tile);
-        triangleLayer.add(new Tile(Direction.move(tile.getPosition(),Direction.Droite,1),tile.getColor()));
-        return triangleLayer;
-    }
-    public List<Tile> squareLayer(Tile tile){
-        List<Tile> squareLayer = triangleLayer(tile);
-        squareLayer.add(new Tile(Direction.move(tile.getPosition(),Direction.BasDroite,1),tile.getColor()));
-        return squareLayer;
-    }
-    public List<Tile> straightLayer(Tile tile){
-        List<Tile> straightLayer = doubleLayer(tile);
-        straightLayer.add(new Tile(Direction.move(tile.getPosition(),Direction.HautDroite,2),tile.getColor()));
-        return straightLayer;
-    }
-    public List<Tile> snakeLayer(Tile tile){
-        List<Tile> snakeLayer = squareLayer(tile);
-        snakeLayer.remove(new Tile(Direction.move(tile.getPosition(),Direction.Droite,1),tile.getColor()));
-        return snakeLayer;
-    }
-    public boolean doubleLayerFind(List<Tile> list){
-        for(int i =0; i< list.size();i++){
-            int compteur =0;
-            List<Tile> doubleLayer = doubleLayer(list.get(i));
-            for(int j =0;j< list.size();j++){
-                if(!(list.contains(doubleLayer.get(j)))){
-                    break;
-                }
-                compteur++;
-            }
-            if (compteur==doubleLayer.size()) return true;
+        private List<Position> list(Position... positions){
+            List<Position> l=new ArrayList<>();
+            for (Position p: positions) l.add(p);
+            return l;
         }
-        return false;
-    }/// ATTENTION ELLE NE VERIFIE PEUT ETRE PAS TOUTE LES SOLUTIONS A CAUSE DES CALQUES (RAJOUTER AU CALQUE LA ROTATION DE WAWA)
-/// peux pas avancer sans avoir la rotation je pense
-    public boolean triangleLayerFind(List<Tile> list){
-        for(int i =0; i< list.size();i++){
-            int compteur =0;
-            List<Tile> triangleLayer = triangleLayer(list.get(i));
-            for(int j =0;j< list.size();j++){
-                if(!(list.contains(triangleLayer.get(j)))){
-                    break;
-                }
-                compteur++;
-            }
-            if (compteur==triangleLayer.size()) return true;
-        }
-        return false;
-    }
 }
