@@ -5,7 +5,7 @@ import fr.cotedazur.univ.polytech.startingpoint.takenoko.Actions.RandomStrategy;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.exceptions.ArgumentalreadyExistOrnotAdj;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.*;
 
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.Objectives.PandaObjective;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives.*;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives.GardnerObjectives;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives.ObjectivesDeck;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives.ObjectivesPanda;
@@ -16,12 +16,12 @@ public class Robot {
 
     private static int nextId = 1;
     private final Random random = new Random();
-    private Board board;
+    private final Board board;
     private final String name;
     private int score = 0;
     private final EnumMap<TileColor, Integer> eatenBamboos = new EnumMap<>(TileColor.class);
-    private List<PandaObjective> pandaObjectives = new ArrayList<>();
-    private List<GardnerObjectives> cardsgardner = new ArrayList<>();
+    private final List<PandaObjective> pandaObjectives = new ArrayList<>();
+    private final List<GardnerObjectives> cardsgardner = new ArrayList<>();
 
     private static final int MAX_OBJECTIVES_IN_HAND = 5;
 
@@ -34,6 +34,50 @@ public class Robot {
             eatenBamboos.put(c, 0);
         }
     }
+    public void checkPandaObjectives() {
+        Iterator<PandaObjective> iterator = pandaObjectives.iterator();
+        while (iterator.hasNext()) {
+            PandaObjective card = iterator.next();
+            if (card.isAchieved(eatenBamboos)) {
+                for (Map.Entry<TileColor, Integer> e : card.getRequired().entrySet()) {
+                    TileColor c = e.getKey();
+                    if (c == TileColor.POND) continue;
+
+                    int need = e.getValue();
+                    int have = eatenBamboos.getOrDefault(c, 0);
+                    eatenBamboos.put(c, Math.max(0, have - need));
+                }
+                addScore(card.getPoints());
+                System.out.println(name + " a accompli un objectif panda : " + card + " et gagne " + card.getPoints() + " points !");
+                iterator.remove();
+            }
+        }
+    }
+    public void checkGardnerObjectives() {
+        Iterator<GardnerObjectives> iterator = cardsgardner.iterator();
+        while (iterator.hasNext()) {
+            GardnerObjectives card = iterator.next();
+            if (card.isAchieved(board)) {
+
+                addScore(card.getPoints());
+                System.out.println(name + " a accompli un objectif jardinier : " + card + " et gagne " + card.getPoints() + " points !");
+                iterator.remove();
+            }
+        }
+    }
+    public void checkObjectives() {
+        checkPandaObjectives();
+        checkGardnerObjectives();
+    }
+    /// * pour tester car le getter fait unmofifiable liste * ///
+    public void addPandaObjectiveForTest(PandaObjective obj) {
+        pandaObjectives.add(obj);
+    }
+
+    public void setEatenForTest(TileColor c, int n) {
+        eatenBamboos.put(c, n);
+    }
+
     public void drawPandaObjective(ObjectivesPanda pandaDeck) {
         if (totalObjectivesInHand() >= MAX_OBJECTIVES_IN_HAND) {
             System.out.println(name + " ne peut pas piocher plus d'objectifs panda (limite atteinte).");
@@ -243,6 +287,7 @@ public class Robot {
             case Gardener -> playGardenerTurn();
             case Objectives -> playObjectiveTurn(pandaDeck, gardenerDeck);
         }
+        checkObjectives();
     }
     public void playObjectiveTurn(ObjectivesPanda pandaDeck, ObjectivesDeck gardenerDeck) {
         if (totalObjectivesInHand() >= MAX_OBJECTIVES_IN_HAND) {

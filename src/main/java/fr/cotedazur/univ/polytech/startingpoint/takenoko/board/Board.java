@@ -127,7 +127,7 @@ public class Board {
 
     public void plantBambooOnGardenerTile() {
         Tile tile = tiles.get(gardener.getPos());
-        if (tile != null) {
+        if ((tile != null) && (tile.getColor()!=TileColor.POND)) {
             tile.addBambou();
         }
     }

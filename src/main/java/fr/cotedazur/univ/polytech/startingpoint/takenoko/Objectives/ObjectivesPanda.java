@@ -2,7 +2,6 @@ package fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives;
 
 
 
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.Objectives.PandaObjective;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.TileColor;
 
 import java.util.*;
