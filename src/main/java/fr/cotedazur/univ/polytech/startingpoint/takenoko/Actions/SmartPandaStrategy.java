@@ -46,7 +46,8 @@ public class SmartPandaStrategy implements RobotStrategy {
             Tile t = board.getTileAt(p);
             if (t == null) continue;
             if (t.getColor() == TileColor.POND) continue;
-            if (t.getNbBambous() <= 0) continue; // on veut manger
+            if (t.getNbBambous() <= 0) continue;// on veut manger
+            if (t.getImprovement()==Improvements.ENCLOSURE) continue;
 
             int score = 0;
             if (missing.getOrDefault(t.getColor(), 0) > 0) score += 100; // couleur utile

@@ -18,6 +18,7 @@ public class Tile {
         this.pos = pos;
         this.color = color;
         this.bambous = new ArrayList<>();
+        this.improvement=   Improvements.NONE;
     }
     public Tile (Position pos , TileColor color, Improvements improvement ) {
         this.pos = pos;
@@ -49,6 +50,9 @@ public class Tile {
             return;
         }
         if (bambous.size() < 4) {
+            if (this.improvement == Improvements.FERTILIZER && bambous.size() < 3) {
+                bambous.add(new Bambou(this.color));
+            }
             bambous.add(new Bambou(this.color));
         }
     }
@@ -58,6 +62,9 @@ public class Tile {
             return false;
         }
         if (bambous.isEmpty()){
+            return false;
+        }
+        if (improvement == Improvements.ENCLOSURE) {
             return false;
         }
         bambous.removeLast();

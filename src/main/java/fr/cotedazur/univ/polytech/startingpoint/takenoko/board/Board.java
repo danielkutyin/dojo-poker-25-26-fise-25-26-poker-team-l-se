@@ -136,7 +136,7 @@ public class Board {
 
     public boolean tryEatBambouOnPandaTile(){
         Tile tile = tiles.get(panda.getPos());
-        return tile != null && tile.removeBambou();
+        return tile != null &&  tile.getImprovement()!= Improvements.ENCLOSURE && tile.removeBambou();
     }
 
     public void eatBambouOnPandaTile() {
