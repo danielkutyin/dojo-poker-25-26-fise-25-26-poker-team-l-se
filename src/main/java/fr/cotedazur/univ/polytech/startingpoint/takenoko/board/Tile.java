@@ -5,9 +5,10 @@ import fr.cotedazur.univ.polytech.startingpoint.takenoko.elements.Bambou;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Tile {
-    private final Position pos;
+    private Position pos;
     private final TileColor color;
     private List<Bambou> bambous = new ArrayList<>();
 
@@ -29,6 +30,9 @@ public class Tile {
     }
     public List<Bambou> getBambous() {
         return bambous;
+    }
+    public void setPosition(Position position){
+        pos = position;
     }
 
     public void addBambou() {
@@ -69,6 +73,18 @@ public class Tile {
             return getNbBambous()==0 ;
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(this==o) return true;
+        if(!(o instanceof Tile tile)) return false;
+        return Objects.equals(pos,tile.pos) && color==tile.color;
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(pos);
     }
 
 
