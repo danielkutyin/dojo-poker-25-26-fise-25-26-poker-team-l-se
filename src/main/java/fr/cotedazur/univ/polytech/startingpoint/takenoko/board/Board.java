@@ -6,6 +6,8 @@ import fr.cotedazur.univ.polytech.startingpoint.takenoko.exceptions.Argumentalre
 
 import java.util.*;
 
+import static java.lang.Math.abs;
+
 public class Board {
 
     private final Map<Position, Tile> tiles = new HashMap<>();
@@ -59,6 +61,23 @@ public class Board {
         List<Position> vois = setNeighbours(pos);
         for (Position v : vois) {
             if (v.equals(pond.getPosition())) {//Regarde si dans la liste des voisins de pos il y a le pond
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean verifTouchBtw2Pos(Position position1, Position position2){
+        List<Direction> listDirection = new ArrayList<>();
+        listDirection.add(Direction.HautDroite);
+        listDirection.add(Direction.Droite);
+        listDirection.add(Direction.BasDroite);
+        listDirection.add(Direction.BasGauche);
+        listDirection.add(Direction.Gauche);
+        listDirection.add(Direction.HautGauche);
+        for(int i = 0; i<6;i++){
+            Position positionTest = new Position(position1.getHeight(),position1.getWidth());
+            positionTest = Direction.move(positionTest,listDirection.get(i),1);
+            if(positionTest.equals(position2)){
                 return true;
             }
         }
