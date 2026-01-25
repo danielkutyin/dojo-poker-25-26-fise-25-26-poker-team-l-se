@@ -25,8 +25,7 @@ public  class GardnerObjectives {
     public void setRequiredBambous(int requiredBambous) {
         this.requiredBambous = requiredBambous;
     }
-
-    public GardnerObjectives(int requiredBambous, int requiredTilesPlanted , TileColor color , int points, Improvements improvement) {
+    public GardnerObjectives(int requiredBambous, int requiredTilesPlanted , TileColor color , int points , Improvements improvement) {
         if (color == null) throw new IllegalArgumentException("color cannot be null");
         if (requiredBambous < 0) throw new IllegalArgumentException("requiredBambous must be >= 0");
         if (requiredTilesPlanted <= 0) throw new IllegalArgumentException("requiredTilesPlanted must be > 0");
@@ -36,40 +35,57 @@ public  class GardnerObjectives {
         this.points = points;
         this.improvement = improvement;
     }
+    public int getPoints() {
+        return points;
+    }
+
+    public int getRequiredTilesPlanted() {
+        return requiredTilesPlanted;
+    }
+
+    public Improvements getImprovement() {
+        return improvement;
+    }
+    @Override
+    public String toString() {
+        return "GardenerObj{color=" + color +
+                ", bambous>=" + requiredBambous +
+                ", tiles>=" + requiredTilesPlanted +
+                ", improv=" + improvement +
+                ", pts=" + points + "}";
+    }
 
 
     /// *verifie chaque  tuiles de plateau si non return false*///
     public boolean isAchieved(Board board) {
-        int checkedTiles = 0;
+        int validTiles = 0;
 
         for (Tile tile : board.getTiles()) {
 
-            // couleur
             if (tile.getColor() != color) {
                 continue;
             }
 
-            // hauteur minimale
             if (tile.getNbBambous() < requiredBambous) {
                 continue;
             }
 
-            // amélioration
-            if (improvement != Improvements.NONE) {
-                if (tile.getImprovement() != improvement) {
-                    continue;
-                }
-            } else {
-                if (tile.getImprovement() != Improvements.NONE) {
-                    continue;
-                }
+            // Seulement si une amélioration est exigée
+            if (improvement != Improvements.NONE &&
+                    tile.getImprovement() != improvement) {
+                continue;
             }
 
-            checkedTiles++;
+            validTiles++;
+
+            if (validTiles >= requiredTilesPlanted) {
+                return true; // early exit
+            }
         }
 
-        return checkedTiles >= requiredTilesPlanted;
+        return false;
     }
+
     public boolean isIrrigated(Board board) {
         return false; /**pour plus tard**/
     }

@@ -146,7 +146,7 @@ public class Board {
 
     public void plantBambooOnGardenerTile() {
         Tile tile = tiles.get(gardener.getPos());
-        if (tile != null) {
+        if ((tile != null) && (tile.getColor()!=TileColor.POND)) {
             tile.addBambou();
         }
     }
@@ -155,7 +155,7 @@ public class Board {
 
     public boolean tryEatBambouOnPandaTile(){
         Tile tile = tiles.get(panda.getPos());
-        return tile != null && tile.removeBambou();
+        return tile != null &&  tile.getImprovement()!= Improvements.ENCLOSURE && tile.removeBambou();
     }
 
     public void eatBambouOnPandaTile() {
