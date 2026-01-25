@@ -9,7 +9,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -202,4 +204,82 @@ public class TileObjectivesTest {
     }
 
 
+    @Test
+    void squarePinkYellow() {
+        Board board = new Board();
+
+        board.addTile(new Tile(new Position(0, 1), TileColor.PINK));
+        board.addTile(new Tile(new Position(1, 0), TileColor.YELLOW));
+        board.addTile(new Tile(new Position(1, 1), TileColor.PINK));
+        board.addTile(new Tile(new Position(0, 2), TileColor.YELLOW));
+
+        Map<Position, TileColor> req = new HashMap<>();
+        req.put(new Position(0, 0), TileColor.PINK);
+        req.put(new Position(1, -1), TileColor.YELLOW);
+        req.put(new Position(1, 0), TileColor.PINK);
+        req.put(new Position(0, 1), TileColor.YELLOW);
+
+        TileObjectiveCard card = new TileObjectiveCard(TilePatternType.SQUARE,5,req);
+
+        assertTrue(checker.isCompleted(board, card));
+    }
+
+    @Test
+    void squarePinkYellowWrongColor() {
+        Board board = new Board();
+
+        board.addTile(new Tile(new Position(0, 1), TileColor.PINK));
+        board.addTile(new Tile(new Position(1, 0), TileColor.YELLOW));
+        board.addTile(new Tile(new Position(1, 1), TileColor.PINK));
+        board.addTile(new Tile(new Position(0, 2), TileColor.PINK));
+
+        Map<Position, TileColor> req = new HashMap<>();
+        req.put(new Position(0, 0), TileColor.PINK);
+        req.put(new Position(1, -1), TileColor.YELLOW);
+        req.put(new Position(1, 0), TileColor.PINK);
+        req.put(new Position(0, 1), TileColor.YELLOW);
+
+        TileObjectiveCard card = new TileObjectiveCard(TilePatternType.SQUARE, 5, req);
+
+        assertFalse(checker.isCompleted(board, card));
+    }
+
+    @Test
+    void squarePinkGreen() {
+        Board board = new Board();
+
+        board.addTile(new Tile(new Position(0, 1), TileColor.GREEN));
+        board.addTile(new Tile(new Position(1, 0), TileColor.PINK));
+        board.addTile(new Tile(new Position(1, 1), TileColor.GREEN));
+        board.addTile(new Tile(new Position(0, 2), TileColor.PINK));
+
+        Map<Position, TileColor> req = new HashMap<>();
+        req.put(new Position(0, 0), TileColor.GREEN);
+        req.put(new Position(1, -1), TileColor.PINK);
+        req.put(new Position(1, 0), TileColor.GREEN);
+        req.put(new Position(0, 1), TileColor.PINK);
+
+        TileObjectiveCard card = new TileObjectiveCard(TilePatternType.SQUARE, 4, req);
+
+        assertTrue(checker.isCompleted(board, card));
+    }
+
+    @Test
+    void squarePinkGreenMissing() {
+        Board board = new Board();
+
+        board.addTile(new Tile(new Position(0, 1), TileColor.GREEN));
+        board.addTile(new Tile(new Position(1, 0), TileColor.PINK));
+        board.addTile(new Tile(new Position(1, 1), TileColor.GREEN));
+
+        Map<Position, TileColor> req = new HashMap<>();
+        req.put(new Position(0, 0), TileColor.GREEN);
+        req.put(new Position(1, -1), TileColor.PINK);
+        req.put(new Position(1, 0), TileColor.GREEN);
+        req.put(new Position(0, 1), TileColor.PINK);
+
+        TileObjectiveCard card = new TileObjectiveCard(TilePatternType.SQUARE, 4, req);
+
+        assertFalse(checker.isCompleted(board, card));
+    }
 }

@@ -1,9 +1,12 @@
 package fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives;
 
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Position;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.TileColor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RotationLayer {
     public Position rotate60(Position p){
@@ -25,6 +28,8 @@ public class RotationLayer {
         }
         return rotated;
     }
+
+
 
     public List<List<Position>> allRotations(List<Position> layer){
         List<List<Position>> rotations = new ArrayList<>();
