@@ -127,6 +127,15 @@ public class Board {
         //sinon exception
         throw new ArgumentalreadyExistOrnotAdj("this tile " + pos.toString() + " cannot be added");
     }
+    public void addImprovement(Tile plot, Improvements improvement) {
+        if (improvement == Improvements.NONE) {
+            throw new IllegalArgumentException("improvement cannot be NONE");
+        }
+        if (plot.getImprovement() != Improvements.NONE) {
+            throw new IllegalStateException("Cette tuile a déjà une amélioration");
+        }
+        plot.setImprovement(improvement);
+    }
     public Panda getPanda(){
         return this.panda;
     }

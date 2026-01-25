@@ -1,9 +1,6 @@
 package fr.cotedazur.univ.polytech.startingpoint.takenoko.Objective;
 
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Board;
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Position;
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.Tile;
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.TileColor;
+import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.*;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives.GardnerObjectives;
 import org.junit.jupiter.api.Test;
 
@@ -31,9 +28,9 @@ public class GardnerObjectivesTest {
         board.addTile(pink);
 
         GardnerObjectives objective =
-                new GardnerObjectives(3, 2, TileColor.GREEN);
+                new GardnerObjectives(3, 2, TileColor.GREEN , 4, Improvements.NONE);
 
-        assertTrue(objective.isAchieved(board));
+        assertFalse(objective.isAchieved(board));
     }
 
     @Test
@@ -50,7 +47,7 @@ public class GardnerObjectivesTest {
         board.addTile(green2);
 
         GardnerObjectives objective =
-                new GardnerObjectives(3, 2, TileColor.GREEN);
+                new GardnerObjectives(3, 2, TileColor.GREEN , 4 , Improvements.NONE);
 
         assertFalse(objective.isAchieved(board));
     }
