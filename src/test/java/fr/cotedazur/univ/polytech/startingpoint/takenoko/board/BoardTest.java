@@ -133,5 +133,35 @@ public class BoardTest {
 
         assertEquals(2,board.rangeMovement(startPosition,Direction.Droite));
     }
+    // Java
+    @Test
+    public void testPlantBambooOnGardenerTile_onPondDoesNothing() {
+        Board board = new Board();
+        // Le jardinier est par défaut sur l'étang (0,0) si c'est votre convention
+        // On vérifie qu'aucun bambou n'est planté sur l'étang.
+        Tile pond = board.getPond();
+        assertEquals(TileColor.POND, pond.getColor());
+        int before = pond.getNbBambous();
+
+        board.plantBambooOnGardenerTile();
+
+        assertEquals(before, pond.getNbBambous());
+    }
+
+    @Test
+    public void testPlantBambooOnGardenerTile_onGreenTilePlantsOneBamboo() {
+        Board board = new Board();
+        Position pos = new Position(0,1); // position valide adjacente à l'étang
+        Tile greenTile = new Tile(pos, TileColor.GREEN);
+        board.addTile(greenTile);
+
+        // On place le jardinier sur cette tuile
+        board.getGardener().setPos(pos);
+
+        assertEquals(0, board.getTileAt(pos).getNbBambous());
+        board.plantBambooOnGardenerTile();
+        assertEquals(1, board.getTileAt(pos).getNbBambous());
+    }
+
 
 }
