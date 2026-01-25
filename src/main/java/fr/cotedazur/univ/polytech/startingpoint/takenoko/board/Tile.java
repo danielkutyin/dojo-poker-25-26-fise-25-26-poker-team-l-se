@@ -6,9 +6,10 @@ import fr.cotedazur.univ.polytech.startingpoint.takenoko.elements.Bambou;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Tile {
-    private final Position pos;
+    private Position pos;
     private final TileColor color;
     private Improvements improvement;
     private List<Bambou> bambous = new ArrayList<>();
@@ -42,6 +43,9 @@ public class Tile {
     }
     public List<Bambou> getBambous() {
         return bambous;
+    }
+    public void setPosition(Position position){
+        pos = position;
     }
 
     public void addBambou() {
