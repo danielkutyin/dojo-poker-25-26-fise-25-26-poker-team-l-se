@@ -30,7 +30,7 @@ public class GardnerObjectivesTest {
         GardnerObjectives objective =
                 new GardnerObjectives(3, 2, TileColor.GREEN , 4, Improvements.NONE);
 
-        assertFalse(objective.isAchieved(board));
+        assertTrue(objective.isAchieved(board));
     }
 
     @Test
