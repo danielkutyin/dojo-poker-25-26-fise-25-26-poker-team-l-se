@@ -4,6 +4,7 @@ import fr.cotedazur.univ.polytech.startingpoint.takenoko.characters.Gardener;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.characters.Panda;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.exceptions.ArgumentalreadyExistOrnotAdj;
 
+import java.io.PipedOutputStream;
 import java.util.*;
 
 import static java.lang.Math.abs;
@@ -36,7 +37,8 @@ public class Board {
     }
 
     //retourne la tuile selon une position donnée
-    public Tile getTileAt(Position position) {
+    public Tile getTileAt(Position position) throws Exception{
+        if(!(getTiles().contains(position)))throw new OutOfBoard();
         return tiles.get(position);
     }
 
@@ -144,10 +146,16 @@ public class Board {
         return gardener;
     }
 
-    public void plantBambooOnGardenerTile() {
+    public void plantBambooOnGardenerTile() throws Exception {
         Tile tile = tiles.get(gardener.getPos());
         if ((tile != null) && (tile.getColor()!=TileColor.POND)) {
             tile.addBambou();
+            for(Direction dir:Direction.values()){
+                Position positionTempo = Direction.move(gardener.getPos(),dir,1);
+                if(getTiles().contains(positionTempo) && getTileAt(gardener.getPos()).getColor().equals(getTileAt(positionTempo).getColor()) && getTileAt(positionTempo).getNbBambous()<4){
+                    getTileAt(positionTempo).addBambou();
+                }
+            }
         }
     }
 

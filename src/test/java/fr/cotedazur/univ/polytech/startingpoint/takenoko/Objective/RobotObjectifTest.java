@@ -17,7 +17,7 @@ public class RobotObjectifTest {
 
 
     @Test
-    public void testGardenerObjectiveIsCompleted_withInsufficientBamboos() {
+    public void testGardenerObjectiveIsCompleted_withInsufficientBamboos() throws Exception {
         Board board = new Board();
         Position pos = new Position(0, 1);
         Tile tile = new Tile(pos, TileColor.GREEN);

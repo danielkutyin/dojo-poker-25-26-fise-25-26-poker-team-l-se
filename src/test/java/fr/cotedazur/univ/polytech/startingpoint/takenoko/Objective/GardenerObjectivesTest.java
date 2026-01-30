@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class GardenerObjectivesTest {
 
     @Test
-    public void testGardenerObjectiveIsCompleted_withEnoughBamboos() {
+    public void testGardenerObjectiveIsCompleted_withEnoughBamboos() throws Exception {
         Board board = new Board();
 
 

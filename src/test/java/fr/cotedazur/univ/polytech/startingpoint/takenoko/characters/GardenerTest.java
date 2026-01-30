@@ -26,7 +26,7 @@ public class GardenerTest {
     }
 
     @Test
-    public void plantBambooOnGardenerTileIncreasesBambooCount() {
+    public void plantBambooOnGardenerTileIncreasesBambooCount() throws Exception {
         Board board = new Board();
         Gardener gardener = board.getGardener();
 

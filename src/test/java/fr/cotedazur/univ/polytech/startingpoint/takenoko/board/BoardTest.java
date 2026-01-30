@@ -14,7 +14,7 @@ public class BoardTest {
     }*/
 
     @Test
-    public void testBoardStartsWithPond(){
+    public void testBoardStartsWithPond() throws Exception {
 
 
         Board board = new Board();
@@ -68,7 +68,7 @@ public class BoardTest {
         assertFalse(board.verifRule2Touch(badPos));
     }
     @Test
-    public void testPandaeatenBambou(){
+    public void testPandaeatenBambou() throws Exception {
         Board board = new Board();
         Position right=new Position(0,1);
         Tile tilePondRight=new Tile(right,TileColor.GREEN);
@@ -81,7 +81,7 @@ public class BoardTest {
         assertEquals(0,board.getTileAt(right).getNbBambous());
     }
     @Test
-    public void testGardenerPlantsBamboo() {
+    public void testGardenerPlantsBamboo() throws Exception {
         Board board = new Board();
         Position right = new Position(0,1);
         Tile tilePondRight = new Tile(right, TileColor.GREEN);
@@ -92,7 +92,7 @@ public class BoardTest {
         assertEquals(1, board.getTileAt(right).getNbBambous());
     }
     @Test
-    public void testGetTileAtNonExistingPosition() {
+    public void testGetTileAtNonExistingPosition() throws Exception {
         Board board = new Board();
         Position nonExistingPos = new Position(5,5);
         assertNull(board.getTileAt(nonExistingPos), "getTileAt should return null for non-existing positions");
@@ -135,7 +135,7 @@ public class BoardTest {
     }
     // Java
     @Test
-    public void testPlantBambooOnGardenerTile_onPondDoesNothing() {
+    public void testPlantBambooOnGardenerTile_onPondDoesNothing() throws Exception {
         Board board = new Board();
         // Le jardinier est par défaut sur l'étang (0,0) si c'est votre convention
         // On vérifie qu'aucun bambou n'est planté sur l'étang.
@@ -149,7 +149,7 @@ public class BoardTest {
     }
 
     @Test
-    public void testPlantBambooOnGardenerTile_onGreenTilePlantsOneBamboo() {
+    public void testPlantBambooOnGardenerTile_onGreenTilePlantsOneBamboo() throws Exception {
         Board board = new Board();
         Position pos = new Position(0,1); // position valide adjacente à l'étang
         Tile greenTile = new Tile(pos, TileColor.GREEN);

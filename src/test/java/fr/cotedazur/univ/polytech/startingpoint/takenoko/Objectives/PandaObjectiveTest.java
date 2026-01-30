@@ -1,6 +1,5 @@
-package fr.cotedazur.univ.polytech.startingpoint.takenoko.Objectives;
+package fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives;
 import fr.cotedazur.univ.polytech.startingpoint.takenoko.board.TileColor;
-import fr.cotedazur.univ.polytech.startingpoint.takenoko.objectives.PandaObjective;
 import org.junit.jupiter.api.Test;
 
 import java.util.EnumMap;

@@ -246,7 +246,7 @@ public class Robot {
         }
     }
 
-    public void playPandaTurn(){
+    public void playPandaTurn() throws Exception {
         System.out.println("Robot " + name + " chooses to move panda.");
         while (true){
             try{
@@ -268,7 +268,7 @@ public class Robot {
 
     }
 
-    public void playTurn(ObjectivesPanda pandaDeck, ObjectivesDeck gardenerDeck) {
+    public void playTurn(ObjectivesPanda pandaDeck, ObjectivesDeck gardenerDeck) throws Exception {
         RandomStrategy strategy = new RandomStrategy();
         Actions a1 = strategy.choose(new TurnView(board, this));
         applyAction(a1, pandaDeck, gardenerDeck);
@@ -278,7 +278,7 @@ public class Robot {
         applyAction(a2, pandaDeck, gardenerDeck);
     }
 
-    public void applyAction(Actions action, ObjectivesPanda pandaDeck, ObjectivesDeck gardenerDeck) {
+    public void applyAction(Actions action, ObjectivesPanda pandaDeck, ObjectivesDeck gardenerDeck) throws Exception {
         if (board.getNumTiles() < 3 && action != Actions.Tiles) action = Actions.Tiles;
 
         switch (action) {
@@ -360,7 +360,7 @@ public class Robot {
 
     }
 
-    public void playGardenerTurn() {
+    public void playGardenerTurn() throws Exception {
         System.out.println("Robot " + name + " choisit de déplacer le jardinier.");
         while (true) {
             try {

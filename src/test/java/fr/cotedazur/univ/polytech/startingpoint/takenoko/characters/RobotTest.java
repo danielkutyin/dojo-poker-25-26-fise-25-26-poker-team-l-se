@@ -41,7 +41,7 @@ public class RobotTest {
         assertEquals(4,board.getNumTiles());
     }
     @Test
-    public void testPlayPandaTurnAddScore(){
+    public void testPlayPandaTurnAddScore() throws Exception {
         Board board = new Board();
         Robot robot = new Robot(board);
         int initialScore=robot.getScore();
