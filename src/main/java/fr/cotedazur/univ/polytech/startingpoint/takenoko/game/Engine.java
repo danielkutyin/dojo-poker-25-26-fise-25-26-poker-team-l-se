@@ -43,7 +43,7 @@ public class Engine {
         return best;
     }
 
-    public void runDemo(){
+    public void runDemo() throws Exception {
         System.out.println("--- Debut de la partie ---");
         board.displayBoard();
         int turn=0;

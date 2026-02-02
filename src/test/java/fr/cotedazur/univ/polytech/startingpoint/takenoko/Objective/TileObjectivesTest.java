@@ -28,7 +28,7 @@ public class TileObjectivesTest {
     }
 
     @Test
-    void doubleGreen() {
+    void doubleGreen() throws Exception {
         Board board = new Board();
         addGreen(board, new Position(0, 1));
         addGreen(board, new Position(1, 0));
@@ -39,7 +39,7 @@ public class TileObjectivesTest {
     }
 
     @Test
-    void doubleGreenRotation() {
+    void doubleGreenRotation() throws Exception {
         Board board = new Board();
         addGreen(board, new Position(0, 1));
         addGreen(board, new Position(-1, 1));
@@ -50,7 +50,7 @@ public class TileObjectivesTest {
     }
 
     @Test
-    void triangleGreen() {
+    void triangleGreen() throws Exception {
         Board board = new Board();
         addGreen(board, new Position(0, 1));
         addGreen(board, new Position(1, 0));
@@ -62,7 +62,7 @@ public class TileObjectivesTest {
     }
 
     @Test
-    void TriangleGreenMissing() {
+    void TriangleGreenMissing() throws Exception {
         Board board = new Board();
 
         // seulement 2 tuiles -> pas triangle
@@ -75,7 +75,7 @@ public class TileObjectivesTest {
     }
 
     @Test
-    void triangleGreen_false_ifRotatedTriangleHasWrongColor() {
+    void triangleGreen_false_ifRotatedTriangleHasWrongColor() throws Exception {
         Board board = new Board();
 
         addGreen(board, new Position(0, 1));
@@ -88,7 +88,7 @@ public class TileObjectivesTest {
     }
 
     @Test
-    void SquareInRotation() {
+    void SquareInRotation() throws Exception {
         Board board = new Board();
 
         addGreen(board, new Position(0, 1)); // adj pond
@@ -102,7 +102,7 @@ public class TileObjectivesTest {
     }
 
     @Test
-    void squareGreen() {
+    void squareGreen() throws Exception {
         Board board = new Board();
 
         addGreen(board, new Position(0, 1));
@@ -115,7 +115,7 @@ public class TileObjectivesTest {
     }
 
     @Test
-    void squareGreenRotation() {
+    void squareGreenRotation() throws Exception {
         Board board = new Board();
         addGreen(board, new Position(0, 1));
         addGreen(board, new Position(1, 0));
@@ -128,7 +128,7 @@ public class TileObjectivesTest {
     }
 
     @Test
-    void squareGreenMissing() {
+    void squareGreenMissing() throws Exception{
         Board board = new Board();
         addGreen(board, new Position(0, 1));
         addGreen(board, new Position(1, 0));
@@ -140,7 +140,7 @@ public class TileObjectivesTest {
     }
 
     @Test
-    void straightGreen() {
+    void straightGreen() throws Exception{
         Board board = new Board();
         addGreen(board, new Position(0, 1));
         addGreen(board, new Position(1, 0));
@@ -153,7 +153,7 @@ public class TileObjectivesTest {
     }
 
     @Test
-    void StraightGreenRotation() {
+    void StraightGreenRotation() throws Exception{
         Board board = new Board();
         addGreen(board, new Position(1, -1));
         addGreen(board, new Position(0, 1));
@@ -166,7 +166,7 @@ public class TileObjectivesTest {
     }
 
     @Test
-    void snakeGreen() {
+    void snakeGreen() throws Exception{
         Board board = new Board();
         addGreen(board, new Position(0, 1));
         addGreen(board, new Position(1, 0));
@@ -179,7 +179,7 @@ public class TileObjectivesTest {
     }
 
     @Test
-    void snakeGreenRotation() {
+    void snakeGreenRotation() throws Exception{
         Board board = new Board();
         addGreen(board, new Position(0, 1));
         addGreen(board, new Position(1, 0));
@@ -191,7 +191,7 @@ public class TileObjectivesTest {
     }
 
     @Test
-    void snakeGreenWrongColor() {
+    void snakeGreenWrongColor() throws Exception{
         Board board = new Board();
         addGreen(board, new Position(0, 1));
         addGreen(board, new Position(1, 0));
@@ -205,7 +205,7 @@ public class TileObjectivesTest {
 
 
     @Test
-    void squarePinkYellow() {
+    void squarePinkYellow() throws Exception{
         Board board = new Board();
 
         board.addTile(new Tile(new Position(0, 1), TileColor.PINK));
@@ -225,7 +225,7 @@ public class TileObjectivesTest {
     }
 
     @Test
-    void squarePinkYellowWrongColor() {
+    void squarePinkYellowWrongColor() throws Exception{
         Board board = new Board();
 
         board.addTile(new Tile(new Position(0, 1), TileColor.PINK));
@@ -245,7 +245,7 @@ public class TileObjectivesTest {
     }
 
     @Test
-    void squarePinkGreen() {
+    void squarePinkGreen() throws Exception{
         Board board = new Board();
 
         board.addTile(new Tile(new Position(0, 1), TileColor.GREEN));
@@ -265,7 +265,7 @@ public class TileObjectivesTest {
     }
 
     @Test
-    void squarePinkGreenMissing() {
+    void squarePinkGreenMissing() throws Exception{
         Board board = new Board();
 
         board.addTile(new Tile(new Position(0, 1), TileColor.GREEN));

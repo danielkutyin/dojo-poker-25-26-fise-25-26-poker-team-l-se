@@ -10,7 +10,7 @@ public class StrategyController implements PlayerController {
     }
 
     @Override
-    public Actions decide(TurnView view) {
+    public Actions decide(TurnView view) throws Exception {
         return strategy.choose(view);
     }
 }

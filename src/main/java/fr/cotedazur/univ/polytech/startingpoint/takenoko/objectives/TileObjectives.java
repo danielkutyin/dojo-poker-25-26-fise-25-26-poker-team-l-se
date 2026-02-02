@@ -14,7 +14,7 @@ public class TileObjectives {
     private RotationLayer rotation= new RotationLayer();
 
 
-    public boolean matches(Board board , List<Position> absPosition, List<Position> rotRelPositions, Map<Position, TileColor> requiredRelColors){
+    public boolean matches(Board board , List<Position> absPosition, List<Position> rotRelPositions, Map<Position, TileColor> requiredRelColors) throws Exception {
         for (int i=0; i<absPosition.size();i++){
             Position abs=absPosition.get(i);
             Tile t=board.getTileAt(abs);
@@ -37,7 +37,7 @@ public class TileObjectives {
         return rotated;
     }
 
-    public boolean isCompleted(Board board, TileObjectiveCard card){
+    public boolean isCompleted(Board board, TileObjectiveCard card) throws Exception {
         List<Position> base= layer.getTileLayer(card.getPatternType());
         List<List<Position>> rotations= rotation.allRotations(base);
 

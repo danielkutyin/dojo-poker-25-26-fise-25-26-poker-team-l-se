@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SmartPandaStrategyTest {
     @Test
-    void choose_before3Tiles_returnsTiles() {
+    void choose_before3Tiles_returnsTiles() throws Exception {
         Board board = new Board();              // numTiles = 1 (pond)
         Robot robot = new Robot(board);
         SmartPandaStrategy strat = new SmartPandaStrategy();
@@ -23,7 +23,7 @@ public class SmartPandaStrategyTest {
     }
 
     @Test
-    void choose_whenUsefulBambooReachable_returnsPanda_andDestination() {
+    void choose_whenUsefulBambooReachable_returnsPanda_andDestination() throws Exception {
         Board board = new Board();
         Robot robot = new Robot(board);
 
@@ -54,7 +54,7 @@ public class SmartPandaStrategyTest {
         assertEquals(new Position(0, 1), strat.choosePandaDestination(view).get());
     }
     @Test
-    void choosePandaDestination_whenNoBamboo_returnsEmpty() {
+    void choosePandaDestination_whenNoBamboo_returnsEmpty() throws Exception {
         Board board = new Board();
         Robot robot = new Robot(board);
 
@@ -74,7 +74,7 @@ public class SmartPandaStrategyTest {
         assertNotEquals(Actions.Panda, strat.choose(view));
     }
     @Test
-    void choosePandaDestination_twoUsefulTiles_picksMostBamboo() {
+    void choosePandaDestination_twoUsefulTiles_picksMostBamboo() throws Exception {
         Board board = new Board();
         Robot robot = new Robot(board);
 
@@ -104,7 +104,7 @@ public class SmartPandaStrategyTest {
                 "Les deux sont utiles, donc on choisit celle avec le plus de bambous (YELLOW=3)");
     }
 
-    private static void addBamboo(Board board, Position p, int n) {
+    private static void addBamboo(Board board, Position p, int n) throws Exception {
         Tile t = board.getTileAt(p);
         for (int i = 0; i < n; i++) t.addBambou();
     }
