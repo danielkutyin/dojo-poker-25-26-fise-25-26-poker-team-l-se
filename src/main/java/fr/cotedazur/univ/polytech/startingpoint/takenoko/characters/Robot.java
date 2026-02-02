@@ -219,7 +219,7 @@ public class Robot {
             throw new ArgumentalreadyExistOrnotAdj("Tile Does not exists " + placed);
         }
     }*/
-    public Position playPandaMove() {
+    public Position playPandaMove() throws Exception {
         Panda po = this.board.getPanda();
         Position start = po.getPos();
 
@@ -311,11 +311,6 @@ public class Robot {
         }
     }
 
-
-
-
-
-
     public Position playGardenerMove() {
         Gardener g = this.board.getGardener();
         Position start = g.getPos();
@@ -382,6 +377,10 @@ public class Robot {
         if  (card.isAchieved(board)){
             cardsgardner.remove(card);
         }
+    }
+
+    public List<GardnerObjectives> getGardenerObjectives() {
+        return Collections.unmodifiableList(cardsgardner);
     }
 
 

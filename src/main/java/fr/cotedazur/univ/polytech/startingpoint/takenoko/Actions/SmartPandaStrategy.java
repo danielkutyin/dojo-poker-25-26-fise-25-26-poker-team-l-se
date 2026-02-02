@@ -8,7 +8,7 @@ import fr.cotedazur.univ.polytech.startingpoint.takenoko.characters.Robot;
 import java.util.*;
 
 public class SmartPandaStrategy implements RobotStrategy {
-    public Actions choose(TurnView view) {
+    public Actions choose(TurnView view) throws Exception {
         Board board = view.board();
         Robot robot = view.robot();
 
@@ -28,11 +28,9 @@ public class SmartPandaStrategy implements RobotStrategy {
     }
 
 
-    public Optional<Position> choosePandaDestination(TurnView view) {
+    public Optional<Position> choosePandaDestination(TurnView view) throws Exception {
         Board board = view.board();
         Robot robot = view.robot();
-        if (robot.getPandaObjectives().isEmpty()) return Optional.empty(); // pas d'objectif panda
-
 
         List<Position> reachable = reachablePositionsForPanda(board);
         if (reachable.isEmpty()) return Optional.empty();

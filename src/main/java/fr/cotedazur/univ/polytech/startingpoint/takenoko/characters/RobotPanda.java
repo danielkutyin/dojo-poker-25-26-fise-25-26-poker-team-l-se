@@ -16,7 +16,7 @@ public class RobotPanda extends Robot{
         this.boardRef = boardRef;
     }
     @Override
-    public void playTurn(ObjectivesPanda pandaDeck, ObjectivesDeck gardenerDeck) {
+    public void playTurn(ObjectivesPanda pandaDeck, ObjectivesDeck gardenerDeck) throws Exception {
         TurnView view = new TurnView(boardRef, this);
 
         Actions a1 = strategy.choose(view);
@@ -30,7 +30,7 @@ public class RobotPanda extends Robot{
     }
 
     @Override
-    public Position playPandaMove() {
+    public Position playPandaMove() throws Exception {
         TurnView view = new TurnView(boardRef, this);
 
         // la stratégie calcule la destination
@@ -39,7 +39,13 @@ public class RobotPanda extends Robot{
                     return pos;
                 })
                 // sinon comportement random normal
-                .orElseGet(super::playPandaMove);
+                .orElseGet(() -> {
+                    try {
+                        return super.playPandaMove();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                });
     }
 }
 
